@@ -16,6 +16,7 @@
 #define C_COMMENT	"//"
 #define C_COMMENT_LEN	2
 
+#define FONTCHAR	"// Code for char"
 #define FONTNAME	"FontName"
 #define FONTSIZE	"FontSize"
 #define PARM_START	11

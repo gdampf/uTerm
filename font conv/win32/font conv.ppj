@@ -7,8 +7,8 @@ POC_PROJECT_VERSION = 7.00#
 POC_PROJECT_TYPE = 3#
 POC_PROJECT_OUTPUTDIR = output#
 POC_PROJECT_RESULTDIR = .#
-POC_PROJECT_ARGUMENTS = font.c outfont#
-POC_PROJECT_WORKPATH = #
+POC_PROJECT_ARGUMENTS = font.c outfont m#
+POC_PROJECT_WORKPATH = .#
 POC_PROJECT_EXECUTOR = #
 CC = pocc.exe#
 AS = poasm.exe#
@@ -38,6 +38,6 @@ output\fontconv.obj: \
 	fontconv.h
 	$(CC) $(CCFLAGS) "$!" -Fo"$@"
 
-.EXCLUDEDFILES:
-
 .SILENT:
+
+.EXCLUDEDFILES:

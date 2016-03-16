@@ -31,15 +31,15 @@ void fprint_bitmap(FILE *outfile,uint32_t n, int width)
       fputc(',',outfile);
   }
 
-  fprintf(outfile,");\n");
+  fprintf(outfile,"),\n");
 
 }
 
-void processfont(FILE *infile, FILE *outfile1, FILE *outfile2)
+void processfont(FILE *infile, FILE *outfile1, FILE *outfile2, int opt)
 {
   char LineBuf[LINE_SIZE+1],FontName[33],*DataType="",*match_loc,*data;
   uint32_t CharBitmap[FONT_YMAX];
-  int x, y, rows=8, datasize=8, i, j, k, byte, bitmap;
+  int x, y, rows=8, datasize=8, i, j, k, byte, bitmap, curr_char=0, first_char= 0x7fff;
 
   while(!feof(infile))
   {
@@ -129,23 +129,45 @@ void processfont(FILE *infile, FILE *outfile1, FILE *outfile2)
 
 exit_readloop:
 
-        data=strtok(NULL,TOKEN_COMMENT);
+        data=strtok(NULL,"\n");
+        curr_char = data[14];
+
         fprintf(outfile1,"  // %s\n",data);
 
-#ifdef OUTPUT_BIN
+        if(first_char>curr_char)
+	  first_char = curr_char;
 
-        for(i=0;i<rows;i++)
-          fprint_bitmap(outfile1,CharBitmap[i],datasize);
-#else
-        fprintf(outfile1,"  ");
+	switch(opt)
+	{
+	  case 'B':					// Binary
+            for(i=0;i<rows;i++)
+              fprint_bitmap(outfile1,CharBitmap[i],datasize);
+	    break;
 
-        for(i=0;i<rows;i++)
-          fprintf(outfile1,(datasize==8)?"0x%02x,":(datasize==16)?"0x%04x,":"0x%08x,",CharBitmap[i]);
+          case 'M':
 
-        fprintf(outfile1,"\n");
+            fprintf(outfile1,"  BM(");
 
-#endif
+            for(i=0;i<rows;i++)
+            { 
+	      fprintf(outfile1,(datasize==8)?"0x%02x":(datasize==16)?"0x%04x":"0x%08x",CharBitmap[i]);
 
+              if(i<rows-1)
+                fprintf(outfile1,",");
+	    }
+
+            fprintf(outfile1,"),\n");
+
+	    break;
+
+	  default:
+            fprintf(outfile1,"  ");
+
+            for(i=0;i<rows;i++)
+              fprintf(outfile1,(datasize==8)?"0x%02x,":(datasize==16)?"0x%04x,":"0x%08x,",CharBitmap[i]);
+
+            fprintf(outfile1,"\n");
+         }
       }
     }
 
@@ -158,19 +180,43 @@ exit_readloop:
   fprintf(outfile2,"\n// Padded size\n");
   fprintf(outfile2,"#define FONT_%s_ROW %d\n#define FONT_%s_COL %d\n\n",FontName,rows,FontName,datasize);
 
-#ifdef OUTPUT_BIN
-  fprintf(outfile2,"#define BIN8(B7,B6,B5,B4,B3,B2,B1,B0) \\\n");
-  fprintf(outfile2,"((B7?0x80:0)|(B6?0x40:0)|(B5?0x20:0)|(B4?0x10:0)|\\\n");
-  fprintf(outfile2,"(B3?0x08:0)|(B2?0x04:0)|(B1?0x02:0)|(B0?0x01:0))\n\n");
+  fprintf(outfile2,"#define FONT_%s_START %d\n",FontName,first_char);
+  fprintf(outfile2,"#define FONT_%s_END %d\n\n",FontName,curr_char);
 
-  fprintf(outfile2,"#define BIN16(B15,B14,B13,B12,B11,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0) \\\n");
-  fprintf(outfile2,"  ((BIN8(B15,B14,B13,B12,B11,B10,B9,B8)<<8)|BIN8(B7,B6,B5,B4,B3,B2,B1,B0))\n\n");
+  switch(opt)
+  {
+    case 'B':
+      fprintf(outfile2,"#define BIN8(B7,B6,B5,B4,B3,B2,B1,B0) \\\n");
+      fprintf(outfile2,"((B7?0x80:0)|(B6?0x40:0)|(B5?0x20:0)|(B4?0x10:0)|\\\n");
+      fprintf(outfile2,"(B3?0x08:0)|(B2?0x04:0)|(B1?0x02:0)|(B0?0x01:0))\n\n");
 
-  fprintf(outfile2,"#define BIN32(B31,B30,B29,B28,B27,B26,B25,B24,B23,B22,B21,B20,B19,B18,B17,B16\\\n");
-  fprintf(outfile2,"B15,B14,B13,B12,B11,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0)\\\n");
-  fprintf(outfile2,"  ((BIN16(B31,B30,B29,B28,B27,B26,B25,B24,B23,B22,B21,B20,B19,B18,B17,B16)<<16)|\\\n");
-  fprintf(outfile2,"    BIN16(B15,B14,B13,B12,B11,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0))\n\n");
-#endif
+      fprintf(outfile2,"#define BIN16(B15,B14,B13,B12,B11,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0) \\\n");
+      fprintf(outfile2,"  ((BIN8(B15,B14,B13,B12,B11,B10,B9,B8)<<8)|BIN8(B7,B6,B5,B4,B3,B2,B1,B0))\n\n");
+
+      fprintf(outfile2,"#define BIN32(B31,B30,B29,B28,B27,B26,B25,B24,B23,B22,B21,B20,B19,B18,B17,B16\\\n");
+      fprintf(outfile2,"B15,B14,B13,B12,B11,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0)\\\n");
+      fprintf(outfile2,"  ((BIN16(B31,B30,B29,B28,B27,B26,B25,B24,B23,B22,B21,B20,B19,B18,B17,B16)<<16)|\\\n");
+      fprintf(outfile2,"    BIN16(B15,B14,B13,B12,B11,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0))\n\n");
+      break;
+
+    case 'M':
+      fprintf(outfile2,"#define BM(");
+
+      for(i=0;i<rows;i++)
+	if(i<rows-1)
+          fprintf(outfile2,"B%d,",i);
+        else
+          fprintf(outfile2,"B%d) \\\n",i);
+
+      for(i=0;i<rows;i++)
+	if(i<rows-1)
+          fprintf(outfile2,"B%d,",i);
+        else
+          fprintf(outfile2,"B%d",i);
+
+      fprintf(outfile2,"\n");
+      break;
+  }
 
   fprintf(outfile2,"#endif\n\n");
 
@@ -181,12 +227,16 @@ int main( int argc, char *argv[])
   FILE *infile, *outfile1, *outfile2;
 
   char outfilename[MAX_PATH+3];
-  int ext;
+  int ext, opt;
 
-  if((argc!=3))
-  { printf("%s <infile> <outfile>\n",argv[0]);
+  if((argc<3)||(argc>4))
+  { 
+    printf("%s <infile> <outfile> [option]\n[option] m = Macro or b= binary",argv[0]);
     return(1);
    }
+
+  opt = (argc==4)?toupper(argv[3][0]):0;
+
 
   infile = fopen(argv[1],"r");
   strncpy(outfilename,argv[2],sizeof(outfilename)); 
@@ -202,7 +252,7 @@ int main( int argc, char *argv[])
   if(infile && outfile1 && outfile2)
   {
     fprintf(outfile1,"#include <stdint.h>\n#include \"%s\"\n",outfilename);
-    processfont(infile,outfile1,outfile2);
+    processfont(infile,outfile1,outfile2,opt);
   }
   else
   {
