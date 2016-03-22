@@ -32,22 +32,17 @@
 #include "lib.h"
 
 volatile uint8_t hour, minute, second, back_update, rain_update, sec_update=1;
-uint8_t tick, time_count;
+uint8_t tick;
+uint16_t phase_accumulator;
 
 // keep track of time
 void VerticalBlank_CB(void)
 {
-	if(tick)
-	{	tick--;
-		
-		back_update = 1;
-		
-		if(!(tick%RAIN_RATE))
-		  rain_update = 1;
-	}
-	else
-	{
-		tick = TICK_RELOAD;
+	phase_accumulator += TICK_INC;
+	
+	if(phase_accumulator>=TICK_THRESHOLD)
+	{	
+		phase_accumulator-=TICK_THRESHOLD;
     sec_update=1;
 		
     if(second++>=60)
@@ -60,6 +55,19 @@ void VerticalBlank_CB(void)
 					hour = 0;
 			}
 		}
+	}
+	
+	if(tick)
+	{	tick--;
+		
+		back_update = 1;
+		
+		if(!(tick%RAIN_RATE))
+		  rain_update = 1;
+	}
+	else
+	{
+		tick = TICK_RELOAD;
 	}
 }
 

@@ -17,6 +17,10 @@
 #define HOUR_FORMAT						24
 #define TICK_RELOAD						60
 
+// Clock frequency = 31250/525 = 1250/21
+#define TICK_INC							21
+#define TICK_THRESHOLD				1250
+
 // update rate
 #define TIME_RATE	  					10
 #define BACKGROUND_RATE				2
