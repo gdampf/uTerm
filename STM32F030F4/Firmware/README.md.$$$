@@ -11,7 +11,7 @@ Source code distributed under GPLV3 except the font file and startup_stm32f030.s
 startup_stm32f030.s:
 http://www.st.com/software_license_agreement_liberty_v2
 
-VGA font (Less Perfect DOS VGA) is converted from:
+font is converted from:
 http://laemeur.sdf.org/fonts/
 "More Perfect DOS VGA and Less Perfect DOS VGA are both free for all use, 
 commercial and non-commercial. IBM designed the glyphs and Zeh Fernando did 
