@@ -2047,7 +2047,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="PARTNO" value="0.1 IN HEADER 1X4" x="20.32" y="3.81" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="R7" library="ipc-7351-resistor" package="RESC1608X55N" value="475R" x="4.3688" y="3.8608" smashed="yes" rot="R90">
-<attribute name="PARTNO" value="330R, 0603" x="4.3688" y="3.8608" size="1.016" layer="27" ratio="15" rot="R90" display="off"/>
+<attribute name="PARTNO" value="475R, 0603" x="4.3688" y="3.8608" size="1.016" layer="27" ratio="15" rot="R90" display="off"/>
 <attribute name="NAME" x="4.3488" y="5.8119" size="0.4064" layer="25" font="vector" ratio="10" rot="R180"/>
 <attribute name="VALUE" x="6.4563" y="2.6108" size="1.27" layer="27" font="vector" ratio="10" rot="R90"/>
 </element>

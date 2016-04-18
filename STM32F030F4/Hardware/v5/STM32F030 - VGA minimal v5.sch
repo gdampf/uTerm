@@ -8273,7 +8273,7 @@ http://www.weartronics.com/</description>
 <attribute name="PARTNO" value="0.1 IN HEADER 1X4"/>
 </part>
 <part name="R7" library="ipc-7351-resistor" deviceset="RESISTOR_" device="0603" value="475R">
-<attribute name="PARTNO" value="330R, 0603"/>
+<attribute name="PARTNO" value="475R, 0603"/>
 </part>
 <part name="SUPPLY4" library="Misc Voltages" deviceset="+3.3V" device=""/>
 <part name="D3" library="ipc-7351-diode" deviceset="A2K_" device="SOT-23" value="BAT54">
