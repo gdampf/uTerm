@@ -8182,7 +8182,7 @@ http://www.weartronics.com/</description>
 <part name="SUPPLY9" library="supply2" deviceset="GND" device=""/>
 <part name="SUPPLY10" library="supply2" deviceset="GND" device=""/>
 <part name="R1" library="ipc-7351-resistor" deviceset="RESISTOR_" device="0603" value="4K7">
-<attribute name="PARTNO" value="10K, 0603"/>
+<attribute name="PARTNO" value="4K7, 0603"/>
 </part>
 <part name="C4" library="ipc-7351-capacitor" deviceset="CAPACITOR_" device="0603" value="0.1uF">
 <attribute name="PARTNO" value="0.1UF, 0603"/>
@@ -8207,7 +8207,7 @@ http://www.weartronics.com/</description>
 <attribute name="PARTNO" value="4K7, 0603"/>
 </part>
 <part name="LICENSE" library="Misc logo" deviceset="CC-BY-NC" device="75%" value="CC-BY-NC">
-<attribute name="PARTNO" value="*"/>
+<attribute name="PARTNO" value="LICENSE"/>
 </part>
 <part name="X1" library="crystal" deviceset="CRYSTAL" device="SM49" value="25MHz">
 <attribute name="PARTNO" value="25MHZ FUND. HC49"/>

@@ -1918,7 +1918,7 @@ Please make sure your boards conform to these design rules.</description>
 <element name="R1" library="ipc-7351-resistor" package="RESC1608X55N" value="4K7" x="14.8844" y="14.7828" smashed="yes" rot="R180">
 <attribute name="NAME" x="14.7774" y="15.6765" size="0.4064" layer="25" font="vector" ratio="10"/>
 <attribute name="VALUE" x="14.2186" y="15.0923" size="0.6096" layer="28" font="vector" ratio="10" rot="MR180"/>
-<attribute name="PARTNO" value="10K, 0603" x="14.8844" y="14.7828" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="PARTNO" value="4K7, 0603" x="14.8844" y="14.7828" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="C4" library="ipc-7351-capacitor" package="CAPC1608X92N" value="0.1uF" x="11.8618" y="14.7828" smashed="yes" rot="R180">
 <attribute name="NAME" x="12.2882" y="15.6773" size="0.4064" layer="25" font="vector" ratio="10"/>
@@ -1946,7 +1946,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="VALUE" x="0.782" y="12.3905" size="1.27" layer="27" font="vector" ratio="10"/>
 </element>
 <element name="LICENSE" library="Misc logo" package="CC-BY-NC-75" value="CC-BY-NC" x="15.621" y="9.2202" smashed="yes" rot="MR0">
-<attribute name="PARTNO" value="*" x="15.621" y="9.2202" size="1.778" layer="28" rot="MR0" display="off"/>
+<attribute name="PARTNO" value="LICENSE" x="15.621" y="9.2202" size="1.778" layer="28" rot="MR0" display="off"/>
 </element>
 <element name="X1" library="crystal" package="SM49" value="25MHz" x="17.6022" y="11.4808" smashed="yes">
 <attribute name="OC_NEWARK" value="unknown" x="17.6022" y="11.4808" size="1.778" layer="27" display="off"/>
