@@ -1,0 +1,7 @@
+This is for Keil MDK.
+
+Ver. 0.0 - Initial Release - 18th Apr 2016
+I have cleaned up the code a bit and squeeze the code for RAM (40 bytes free).
+It is stable enough to be used as a dumb terminal, but incomplete as the ANSI 
+escape code handling and keyboard handling are not yet finished.
+

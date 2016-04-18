@@ -1,7 +1,7 @@
 /*
- * fifo.h
+ * term.c
  *
- * Created: March-21-16, 7:13:37 PM
+ * Created: March-14-16, 5:18:46 PM
  *  Author: K. C. Lee
  * Copyright (c) 2016 by K. C. Lee 
  
@@ -20,32 +20,29 @@
 
 	If not, see http://www.gnu.org/licenses/gpl-3.0.en.html
  */
-
-#ifndef _FIFO_H_
-#define _FIFO_H_
-
-#include <stdint.h>
+ 
 #include "vga-min.h"
+#include "ansi.h"
+#include "serial.h"
+#include "ps2.h"
 
-typedef uint8_t FIFO_Data_t;
-typedef uint8_t FIFO_Index_t;
-
-typedef struct
+int main(void)
 {
-	FIFO_Data_t 					*Buffer;
-	FIFO_Index_t	 				SizeMask;	
-	volatile FIFO_Index_t Head;
-	volatile FIFO_Index_t Tail;
-} FIFO;
+	VGA_Init();
+  USART_Init();
+	PS2_Init();
+  ANSI_Init();
 
-#define FIFO_INC(INDEX,MOD1)	((INDEX+1)&(MOD1))
+	while(1)
+	{
+		if(FIFO_ReadAvail((FIFO*)RxBuf))
+			ANSI_FSM(Getc((FIFO*)RxBuf));
 
-void    FIFO_Clear(FIFO *Queue);
-uint8_t FIFO_Write(FIFO *Queue, FIFO_Data_t data);
-uint8_t FIFO_WriteAvail(FIFO *Queue);
-uint8_t FIFO_Read(FIFO *Queue, FIFO_Data_t *data);
-uint8_t FIFO_ReadAvail(FIFO *Queue);
-uint8_t Getc(FIFO *Queue);
-uint8_t Getc_Timeout(FIFO *Queue, FIFO_Data_t *data, uint16_t Timeout);
-
-#endif
+		if(FIFO_ReadAvail((FIFO*)PS2_Buf))
+			PS2_Task();
+		
+		if(Cursor.Update)
+			Cursor_Task();
+		
+	}
+}
