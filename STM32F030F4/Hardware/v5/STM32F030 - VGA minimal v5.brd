@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.001" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.001" altunitdist="inch" altunit="inch"/>
+<grid distance="0.001" unitdist="inch" unit="mm" style="lines" multiple="1" display="no" altdistance="0.001" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -159,10 +159,10 @@
 <text x="11.938" y="15.0876" size="0.8128" layer="22" ratio="15" rot="MR270">PA3</text>
 <text x="14.351" y="15.0876" size="0.8128" layer="22" ratio="15" rot="MR270">PA2</text>
 <text x="16.8402" y="15.0876" size="0.8128" layer="22" ratio="15" rot="MR270">BOOT</text>
-<text x="23.622" y="5.1308" size="0.8128" layer="22" ratio="15" rot="MR90">3V3</text>
-<text x="21.2852" y="5.08" size="0.8128" layer="22" ratio="15" rot="MR90">SWDIO</text>
-<text x="18.669" y="5.08" size="0.8128" layer="22" ratio="15" rot="MR90">GND</text>
-<text x="16.3322" y="5.08" size="0.8128" layer="22" ratio="15" rot="MR90">SWDCLK</text>
+<text x="23.622" y="5.4102" size="0.8128" layer="22" ratio="15" rot="MR90">3V3</text>
+<text x="21.2852" y="5.4102" size="0.8128" layer="22" ratio="15" rot="MR90">SWDIO</text>
+<text x="18.4658" y="5.4102" size="0.8128" layer="22" ratio="15" rot="MR90">GND</text>
+<text x="16.3322" y="5.3848" size="0.8128" layer="22" ratio="15" rot="MR90">SWDCLK</text>
 <text x="15.5702" y="6.1468" size="0.8128" layer="22" ratio="15" rot="MR0">(C)2016 
 K. C. Lee</text>
 <text x="23.876" y="10.9982" size="0.8128" layer="22" ratio="15" rot="MR90">5V</text>
@@ -178,7 +178,6 @@ K. C. Lee</text>
 <dimension x1="-0.1778" y1="1.27" x2="-0.1778" y2="16.51" x3="-2.336803125" y3="8.89" textsize="0.6096" layer="51" width="0.0254" unit="mil" visible="yes"/>
 <text x="8.636" y="2.921" size="0.8128" layer="22" ratio="15" rot="MR90">GND</text>
 <wire x1="3.2766" y1="12.3698" x2="1.5748" y2="12.3698" width="0.0254" layer="41"/>
-<rectangle x1="4.7752" y1="15.748" x2="5.3594" y2="17.399" layer="29"/>
 <wire x1="8.2804" y1="5.4356" x2="8.2804" y2="5.9944" width="0.0254" layer="41"/>
 <wire x1="9.9822" y1="5.3848" x2="9.5758" y2="5.3848" width="0.0254" layer="41"/>
 <wire x1="7.0104" y1="5.1562" x2="7.0104" y2="5.588" width="0.0254" layer="41"/>
