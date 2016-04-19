@@ -27,8 +27,9 @@ This is a Matrix style Clock running in VGA 640x480 Text mode
 using the schematic in the hardware section.
 
 Source code is a bit rough and out of date with the development branch as this 
-is a quick demo for the VGA Text code.
+is a quick demo for the VGA Text code in its early stage.
 
 ChibiTerm:
-This is the source code directory for ChibiTerm terminal program.
+This is the source code directory for ChibiTerm terminal program.  This is the
+main development branch.
 

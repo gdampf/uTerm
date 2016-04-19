@@ -2032,13 +2032,13 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="9.8498" y="2.1391" size="0.4064" layer="25" font="vector" ratio="10"/>
 <attribute name="VALUE" x="12.5785" y="2.9156" size="1.27" layer="27" font="vector" ratio="10" rot="R90"/>
 </element>
-<element name="D1" library="Misc Passives" package="SOD-123" value="3V3 Zener" x="19.05" y="12.573" smashed="yes" rot="MR270">
+<element name="D1" library="Misc Passives" package="SOD-123" value="5V1 Zener" x="19.05" y="12.573" smashed="yes" rot="MR270">
 <attribute name="NAME" x="17.9324" y="13.1572" size="0.4064" layer="26" rot="MR270"/>
-<attribute name="PARTNO" value="BZT52C3V3" x="19.05" y="12.573" size="1.778" layer="28" rot="MR270" display="off"/>
+<attribute name="PARTNO" value="BZT52C5V1" x="19.05" y="12.573" size="1.778" layer="28" rot="MR270" display="off"/>
 </element>
-<element name="D2" library="Misc Passives" package="SOD-123" value="3V3 Zener" x="21.59" y="12.573" smashed="yes" rot="MR270">
+<element name="D2" library="Misc Passives" package="SOD-123" value="5V1 Zener" x="21.59" y="12.573" smashed="yes" rot="MR270">
 <attribute name="NAME" x="22.3774" y="14.5796" size="0.4064" layer="26" rot="MR180"/>
-<attribute name="PARTNO" value="BZT52C3V3" x="21.59" y="12.573" size="1.778" layer="28" rot="MR270" display="off"/>
+<attribute name="PARTNO" value="BZT52C5V1" x="21.59" y="12.573" size="1.778" layer="28" rot="MR270" display="off"/>
 </element>
 <element name="J2" library="Misc Conn" package="1X04" value="" x="20.32" y="3.81" smashed="yes" rot="R180">
 <attribute name="NAME" x="21.844" y="5.2832" size="0.4064" layer="25" ratio="10"/>
