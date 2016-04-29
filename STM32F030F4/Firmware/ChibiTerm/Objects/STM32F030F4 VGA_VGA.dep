@@ -1,0 +1,121 @@
+Dependencies for Project 'STM32F030F4 VGA', Target 'VGA': (DO NOT MODIFY !)
+F (.\startup_stm32f030.s)(0x56D65C84)(--cpu Cortex-M0 -g --apcs=interwork -I C:\CAD\Keil_v5\ARM\RV31\INC-I C:\CAD\Keil_v5\ARM\CMSIS\Include-I C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx--pd "__UVISION_VERSION SETA 514"--list .\listings\startup_stm32f030.lst --xref -o .\objects\startup_stm32f030.o --depend .\objects\startup_stm32f030.d)
+F (.\vga-min.c)(0x5721017C)(--c99 -c --cpu Cortex-M0 -g -O3 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Listings\\"-I C:\CAD\Keil_v5\ARM\RV31\INC-I C:\CAD\Keil_v5\ARM\CMSIS\Include-I C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx-D__UVISION_VERSION="514" -DSTM32F030-o .\objects\vga-min.o --list_dir ".\\Listings\\" --list --omf_browse .\objects\vga-min.crf --depend .\objects\vga-min.d)
+I (vga-min.h)(0x57200D2B)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x56E495A7)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cm0.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\system_stm32f0xx.h)(0x532C4D00)
+I (hardware.h)(0x571138CA)
+I (gpio.h)(0x56F9C325)
+I (font.h)(0x56F3072A)
+I (vga font12.h)(0x57046E87)
+F (.\vga-min.h)(0x57200D2B)()
+F (.\serial.c)(0x57152A01)(--c99 -c --cpu Cortex-M0 -g -O3 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Listings\\"-I C:\CAD\Keil_v5\ARM\RV31\INC-I C:\CAD\Keil_v5\ARM\CMSIS\Include-I C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx-D__UVISION_VERSION="514" -DSTM32F030-o .\objects\serial.o --list_dir ".\\Listings\\" --list --omf_browse .\objects\serial.crf --depend .\objects\serial.d)
+I (serial.h)(0x5711875A)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x56E495A7)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cm0.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\system_stm32f0xx.h)(0x532C4D00)
+I (fifo.h)(0x57152983)
+I (vga-min.h)(0x57200D2B)
+I (hardware.h)(0x571138CA)
+I (gpio.h)(0x56F9C325)
+F (.\fifo.c)(0x57118C4B)(--c99 -c --cpu Cortex-M0 -g -O3 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Listings\\"-I C:\CAD\Keil_v5\ARM\RV31\INC-I C:\CAD\Keil_v5\ARM\CMSIS\Include-I C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx-D__UVISION_VERSION="514" -DSTM32F030-o .\objects\fifo.o --list_dir ".\\Listings\\" --list --omf_browse .\objects\fifo.crf --depend .\objects\fifo.d)
+I (fifo.h)(0x57152983)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476A9D0)
+I (vga-min.h)(0x57200D2B)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x56E495A7)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cm0.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\system_stm32f0xx.h)(0x532C4D00)
+I (hardware.h)(0x571138CA)
+I (gpio.h)(0x56F9C325)
+F (.\ps2.c)(0x5715299A)(--c99 -c --cpu Cortex-M0 -g -O3 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Listings\\"-I C:\CAD\Keil_v5\ARM\RV31\INC-I C:\CAD\Keil_v5\ARM\CMSIS\Include-I C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx-D__UVISION_VERSION="514" -DSTM32F030-o .\objects\ps2.o --list_dir ".\\Listings\\" --list --omf_browse .\objects\ps2.crf --depend .\objects\ps2.d)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\ctype.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\string.h)(0x5476A9D0)
+I (ps2.h)(0x57150347)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x56E495A7)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cm0.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\system_stm32f0xx.h)(0x532C4D00)
+I (gpio.h)(0x56F9C325)
+I (fifo.h)(0x57152983)
+I (vga-min.h)(0x57200D2B)
+I (hardware.h)(0x571138CA)
+I (ps2 table.h)(0x56FAB839)
+I (serial.h)(0x5711875A)
+F (.\rcc.c)(0x56F9C2F1)(--c99 -c --cpu Cortex-M0 -g -O3 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Listings\\"-I C:\CAD\Keil_v5\ARM\RV31\INC-I C:\CAD\Keil_v5\ARM\CMSIS\Include-I C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx-D__UVISION_VERSION="514" -DSTM32F030-o .\objects\rcc.o --list_dir ".\\Listings\\" --list --omf_browse .\objects\rcc.crf --depend .\objects\rcc.d)
+I (vga-min.h)(0x57200D2B)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x56E495A7)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cm0.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\system_stm32f0xx.h)(0x532C4D00)
+I (hardware.h)(0x571138CA)
+I (gpio.h)(0x56F9C325)
+F (.\gpio.h)(0x56F9C325)()
+F (.\term.c)(0x57118EBD)(--c99 -c --cpu Cortex-M0 -g -O3 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Listings\\"-I C:\CAD\Keil_v5\ARM\RV31\INC-I C:\CAD\Keil_v5\ARM\CMSIS\Include-I C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx-D__UVISION_VERSION="514" -DSTM32F030-o .\objects\term.o --list_dir ".\\Listings\\" --list --omf_browse .\objects\term.crf --depend .\objects\term.d)
+I (vga-min.h)(0x57200D2B)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x56E495A7)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cm0.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\system_stm32f0xx.h)(0x532C4D00)
+I (hardware.h)(0x571138CA)
+I (gpio.h)(0x56F9C325)
+I (ansi.h)(0x5714E274)
+I (serial.h)(0x5711875A)
+I (fifo.h)(0x57152983)
+I (ps2.h)(0x57150347)
+F (.\hardware.h)(0x571138CA)()
+F (.\vga font12.c)(0x56F9628E)(--c99 -c --cpu Cortex-M0 -g -O3 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Listings\\"-I C:\CAD\Keil_v5\ARM\RV31\INC-I C:\CAD\Keil_v5\ARM\CMSIS\Include-I C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx-D__UVISION_VERSION="514" -DSTM32F030-o ".\objects\vga font12.o" --list_dir ".\\Listings\\" --list --omf_browse ".\objects\vga font12.crf" --depend ".\objects\vga font12.d")
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476A9D0)
+I (vga font12.h)(0x57046E87)
+F (.\ps2 table.c)(0x56F9C430)(--c99 -c --cpu Cortex-M0 -g -O3 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Listings\\"-I C:\CAD\Keil_v5\ARM\RV31\INC-I C:\CAD\Keil_v5\ARM\CMSIS\Include-I C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx-D__UVISION_VERSION="514" -DSTM32F030-o ".\objects\ps2 table.o" --list_dir ".\\Listings\\" --list --omf_browse ".\objects\ps2 table.crf" --depend ".\objects\ps2 table.d")
+I (ps2 table.h)(0x56FAB839)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476A9D0)
+I (ps2.h)(0x57150347)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x56E495A7)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cm0.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\system_stm32f0xx.h)(0x532C4D00)
+I (gpio.h)(0x56F9C325)
+I (fifo.h)(0x57152983)
+I (vga-min.h)(0x57200D2B)
+I (hardware.h)(0x571138CA)
+F (.\ansi.c)(0x5714E6FB)(--c99 -c --cpu Cortex-M0 -g -O3 -Otime --apcs=interwork --split_sections --asm --interleave --asm_dir ".\\Listings\\"-I C:\CAD\Keil_v5\ARM\RV31\INC-I C:\CAD\Keil_v5\ARM\CMSIS\Include-I C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx-D__UVISION_VERSION="514" -DSTM32F030-o .\objects\ansi.o --list_dir ".\\Listings\\" --list --omf_browse .\objects\ansi.crf --depend .\objects\ansi.d)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\string.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\ctype.h)(0x5476A9D0)
+I (vga-min.h)(0x57200D2B)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476A9D0)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x56E495A7)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cm0.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x532075FA)
+I (C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\system_stm32f0xx.h)(0x532C4D00)
+I (hardware.h)(0x571138CA)
+I (gpio.h)(0x56F9C325)
+I (font.h)(0x56F3072A)
+I (vga font12.h)(0x57046E87)
+I (ansi.h)(0x5714E274)
+I (serial.h)(0x5711875A)
+I (fifo.h)(0x57152983)

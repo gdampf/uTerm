@@ -1,0 +1,13 @@
+.\objects\fifo.o: fifo.c
+.\objects\fifo.o: fifo.h
+.\objects\fifo.o: C:\CAD\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\fifo.o: vga-min.h
+.\objects\fifo.o: C:\CAD\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\fifo.o: C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\stm32f0xx.h
+.\objects\fifo.o: C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cm0.h
+.\objects\fifo.o: C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h
+.\objects\fifo.o: C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h
+.\objects\fifo.o: C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\system_stm32f0xx.h
+.\objects\fifo.o: C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cm0.h
+.\objects\fifo.o: hardware.h
+.\objects\fifo.o: gpio.h

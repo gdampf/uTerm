@@ -46,7 +46,6 @@ typedef struct
 	uint8_t		*TextBuffer_Ptr;
 	uint16_t	Line;											// Current VGA line
 	uint8_t		Font_CurRow;							// Current font row
-	uint8_t		Buffer:1;									// Ping pong buffer
 	uint8_t		Render:1;									// rendering flag
 	uint8_t		Display:1;								// display flag
 	enum DPMS	DPMS_Mode:2;							// Power management mode
@@ -58,9 +57,6 @@ extern volatile uint8_t MicroTimer0, MicroTimer1;
 
 void   VGA_Init(void);
 void   Delay(uint16_t Ticks);
-	
-#define ScanLine_Buf0			&ScanLineBuf[0]
-#define ScanLine_Buf1			&ScanLineBuf[SPI_BUF_SIZE+1]
 
 #define TICK							((VGA_PIX_X*1000000UL)/VGA_DOTCLK)  /* us*/
 #define us_to_Tick(X)			((X)/TICK+1)
@@ -255,4 +251,6 @@ Scan type: non interlaced.  Scan type: non interlaced.  Scan type: non interlace
 
 #define TEXT_BUF(X,Y)			TextBuffer[(X)+(Y)*VGA_TEXT_X]
 
+#define VGA_PRE_RENDER		8
+#define VGA_POST_RENDER		(VGA_TEXT_X-VGA_PRE_RENDER)
 #endif

@@ -26,7 +26,7 @@
 
 VGA_t VGA;
 uint8_t TextBuffer[VGA_TEXT_X*VGA_TEXT_Y];
-static uint8_t ScanLineBuf[SPI_BUF_SIZE*2+1];
+static uint8_t ScanLineBuf[SPI_BUF_SIZE];
 volatile uint8_t MicroTimer0, MicroTimer1;
 
 void VGA_Init(void)
@@ -118,21 +118,20 @@ void VGA_Init(void)
 }
 
 void TIM3_IRQHandler(void)
-{
+{ uint8_t i,*textbuf, *font, *scanline;
+	
 	if(TIM3->SR & TIM_SR_CC2IF)
 	{
 		DMA1_Channel3->CCR = DMA_CCR_PL_1|DMA_CCR_PL_0|DMA_CCR_MINC|				// Very high priority, memory increment
 												 DMA_CCR_DIR|SPI_DMA_CCR_SIZE|DMA_CCR_EN;				// trigger DMA transfer
 
 		if(VGA.Render)																											// render loop
-		{ 
-			uint8_t i,*textbuf,*scanline,*font;
+		{ 		   
+		  font = (uint8_t *) &FONT_TABLE[VGA.Font_CurRow];			
+      textbuf = VGA.TextBuffer_Ptr+VGA_PRE_RENDER;
+	    scanline = ScanLineBuf+1+VGA_PRE_RENDER;
 			
-	    scanline = (VGA.Buffer)?ScanLine_Buf0+1:ScanLine_Buf1+1;			
-	    font = (uint8_t *) &FONT_TABLE[VGA.Font_CurRow];			
-      textbuf = VGA.TextBuffer_Ptr;
-			
-	    for(i=0;i<VGA_TEXT_X/2;i++)
+	    for(i=0;i<VGA_POST_RENDER/2;i++)
 		  {
 	      *scanline++ = font[(*textbuf++)*FONT_ROW];
 			  *scanline++ = font[(*textbuf++)*FONT_ROW];
@@ -143,6 +142,16 @@ void TIM3_IRQHandler(void)
 				VGA.Font_CurRow = 0;
 			  VGA.TextBuffer_Ptr+= VGA_TEXT_X;
 			}
+			
+	    font = (uint8_t *) &FONT_TABLE[VGA.Font_CurRow];			
+      textbuf = VGA.TextBuffer_Ptr;
+	    scanline = ScanLineBuf+1;			
+
+	    for(i=0;i<VGA_PRE_RENDER/2;i++)
+		  {
+	      *scanline++ = font[(*textbuf++)*FONT_ROW];
+			  *scanline++ = font[(*textbuf++)*FONT_ROW];
+		  }			
 		}
 
 #ifdef VGA_BACKGROUND
@@ -160,13 +169,7 @@ void TIM3_IRQHandler(void)
     {
 			case VGA_VSYNC_START:
 				if (VGA.DPMS_Mode < DPMSModeSuspend)
-			  {
-#ifdef VSYNC 
 					VSYNC_ASSERT();																	// Set VSync
-#else									
-					TIM3->CCER &= ~TIM_CCER_CC1P;										// CSync: flip polarity
-#endif
-				}
 				else
 					VSYNC_PORT->BSRR = PIN_CLR(VSYNC_PIN);					
 				
@@ -178,22 +181,24 @@ void TIM3_IRQHandler(void)
 			
 			case VGA_VSYNC_STOP:
 				if (VGA.DPMS_Mode<DPMSModeSuspend)
-			  {				
-#ifdef VSYNC 				
 					VSYNC_DEASSERT();																// Reset VSync
-#else
-					TIM3->CCER |= TIM_CCER_CC1P;
-#endif			
-				}
 				
 			  VGA.Render = 0;
-				VGA.Buffer = 0;
 				VGA.Display = 0;
   			VGA.TextBuffer_Ptr = TextBuffer;
 				break;
 
 			case VGA_DISPLAY_START-1:		
 				VGA.Render = 1;
+				font = (uint8_t *) &FONT_TABLE[VGA.Font_CurRow];			
+				textbuf = VGA.TextBuffer_Ptr;
+				scanline = ScanLineBuf+1;			
+
+				for(i=0;i<VGA_PRE_RENDER/2;i++)
+				{
+					*scanline++ = font[(*textbuf++)*FONT_ROW];
+					*scanline++ = font[(*textbuf++)*FONT_ROW];
+				}
 				break;			
 
 			case VGA_DISPLAY_START:
@@ -221,7 +226,7 @@ void TIM3_IRQHandler(void)
 			{
 				DMA1_Channel3->CCR &= ~DMA_CCR_EN;
 				DMA1_Channel3->CNDTR = SPI_DMA_WORDS;							// # of transfers					
-				DMA1_Channel3->CMAR = (uint32_t)(VGA.Buffer?ScanLine_Buf0:ScanLine_Buf1);
+				DMA1_Channel3->CMAR = (uint32_t)ScanLineBuf;
 								
 #ifdef VGA_BACKGROUND
 				TIM3->CCR4 = VGA_DISPLAY_ON;
@@ -230,7 +235,6 @@ void TIM3_IRQHandler(void)
 				// Set PendAV
 				SCB->ICSR |= SCB_ICSR_PENDSVSET_Msk;
 			}
-			VGA.Buffer = !VGA.Buffer;
 		
 		if (MicroTimer0) 
 		  MicroTimer0--;
@@ -238,7 +242,7 @@ void TIM3_IRQHandler(void)
 		if (MicroTimer1) 
 		  MicroTimer1--;
 		
-		TIM3->SR = ~TIM_SR_UIF;																// clear interrupt flag
+		TIM3->SR &= ~TIM_SR_UIF;															// clear interrupt flag
 	}
 }
 

@@ -1,0 +1,14 @@
+.\objects\serial.o: serial.c
+.\objects\serial.o: serial.h
+.\objects\serial.o: C:\CAD\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\serial.o: C:\CAD\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\serial.o: C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\stm32f0xx.h
+.\objects\serial.o: C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cm0.h
+.\objects\serial.o: C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h
+.\objects\serial.o: C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h
+.\objects\serial.o: C:\CAD\Keil_v5\ARM\Inc\ST\STM32F0xx\system_stm32f0xx.h
+.\objects\serial.o: fifo.h
+.\objects\serial.o: vga-min.h
+.\objects\serial.o: C:\CAD\Keil_v5\ARM\CMSIS\Include\core_cm0.h
+.\objects\serial.o: hardware.h
+.\objects\serial.o: gpio.h
