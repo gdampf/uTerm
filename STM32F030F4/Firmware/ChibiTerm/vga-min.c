@@ -22,7 +22,7 @@
  */ 
 
 #include "vga-min.h"
-#include "font.h"
+#include "vgafont.h"
 
 VGA_t VGA;
 uint8_t TextBuffer[VGA_TEXT_X*VGA_TEXT_Y];

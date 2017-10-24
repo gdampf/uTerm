@@ -50,11 +50,8 @@ uint8_t 	PS2_Send(uint8_t Cmd);
 void 			PS2_Task(void);
 uint16_t 	PS2_Parity(uint8_t byte);
 void    	PS2_Decode(uint8_t key_code);
-
-void 			Key_Modifers(uint8_t key)	;
-void 			Key_FN(uint8_t key);
-void 			Key_Cursor(uint8_t key);
-void 			Key_Other(uint8_t key);
+void      NumLockOn(void);
+void      NumLockOff(void);
 
 extern  	FIFO_Data_t PS2_Buf[];
 
@@ -69,25 +66,17 @@ typedef union
 	} States;
 } PS2_IF_t;
 
-typedef union
-{	struct
-	{
-		uint8_t LED:3;
-		uint8_t Shift:1;
-		uint8_t Ctrl:1;
-		uint8_t Alt:1;
-		uint8_t Extend:1;
-		uint8_t Release:1;
-	} Attr;
-	uint8_t Init;
-} PS2_Modifier_t;
 
 typedef struct 
 {
   uint8_t State:2;
-  uint8_t PrevKey:2;
-	
+  uint8_t PrevKey:2;	
 } PS2_State_t;
+
+enum PS2_States 
+{ 
+  PS2_UNKNOWN, PS2_KBD_RDY, PS2_CMD, PS2_CMD_ACK
+};
 
 #define PREV_MODKEY(X)					(X-KEY_MODIFERS+1)
 
@@ -118,7 +107,8 @@ typedef struct
 #define PS2_RESPOND_RESEND      0xfe
 #define PS2_RESPOND_FAIL        0xfc
 #define PS2_RESPOND_FAIL2       0xfd
-#define PS2_RESPOND_MS_ID       0x00
+#define PS2_RESPOND_MS_ID       0x00 // some docs say keyboard error
+																		 // in modes 2 and 3
 
 // pseudo keyboard code return for garbled data
 #define PS2_KBD_ERR_CODE				0xff
@@ -143,9 +133,5 @@ typedef struct
 #define PS2_KBD_MF2_ID2         0x83
 */
 
-enum PS2_States 
-{ 
-  PS2_UNKNOWN, PS2_KBD_RDY, PS2_CMD, PS2_CMD_ACK
-};
 
 #endif

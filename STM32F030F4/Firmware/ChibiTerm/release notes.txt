@@ -5,3 +5,21 @@ I have cleaned up the code a bit and squeeze the code for RAM (40 bytes free).
 It is stable enough to be used as a dumb terminal, but incomplete as the ANSI 
 escape code handling and keyboard handling are not yet finished.
 
+Ver. 1.0 - VT100 emulation - 24th Oct 2017 by Madis Kaal
+
+* added full 256 character bitmap font where upper half is in inverse, so
+  that line drawing characters and inverse text are available via standard
+  VT100 escape sequences
+* added VT100 line drawing characters and some extras into low 32 bytes of
+  character set
+* switched to 16 scan line character set, reducing number of text lines to
+  30. this freed up memory needed for VT100 and increased serial FIFO-s
+* added VT100 emulation, works well with joe/nano/top/midnight commander
+  when attached as serial console to OSX machine. Also works fine with
+  everything except midnight commander when I ssh to linux machine. mc
+  on does not seem to know how to draw VT100 line characters.
+* also emulating VT100 keyboard to reasonable extent. Cursor keys, function
+  keys etc. seem to work with editors/midnight commander on OSX. Only US
+  layout currently mapped, as character sets are only US-ASCII anyway.
+* added quick and dirty font editor (fontedit.py) for tweaking the font
+  files

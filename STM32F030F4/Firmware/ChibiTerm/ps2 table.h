@@ -4,6 +4,10 @@
  * Created: March-24-16, 6:31:56 PM
  *  Author: K. C. Lee
  * Copyright (c) 2016 by K. C. Lee 
+ *
+ * All tables replaced and decoding method changed by Madis Kaal
+ * Copyright (c) 2017 Madis Kaal
+ *
  
  	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -27,62 +31,41 @@
 #include <stdint.h>
 #include "ps2.h"
 
-extern const uint8_t Kbd_Code[], ANSI_FN_Code[];
-
-#define MAX_KEYTBL		0x83
-
-#define KEY_MODIFERS	0x80
-#define KEY_FN_KEYS		0x90
-#define KEY_CURSORS		0xa0
-#define KEY_OTHERS		0xb0
-
-#define KEY_TYPE(X)		((X)&0xf0)
-#define KEY_FN(X)			((X)+KEY_FN_KEYS)
-
-#define MODIFIER(X)		(1<<((X)&0x07))
-
-// Use same mapping as LED
-
-enum ModifierKeys
+typedef struct 
 {
-	KEY_SCROLL 	= KEY_MODIFERS,
-	KEY_NUMLOCK,
-	KEY_CAP,
-  KEY_SHIFT,
-  KEY_CTRL,
-  KEY_ALT
+	uint8_t key;
+	uint8_t character;
+} keymap_t;
+
+extern const uint8_t Scancode_Translations[];
+extern const uint8_t Shifted_Regular[];
+extern const uint8_t Unshifted_Regular[];
+extern const keymap_t Keypad_Regular[];
+extern const keymap_t Keypad_Numeric[];
+extern const keymap_t Escaped_Regular[];
+extern const char *Ansi_Key_Sequences[];
+
+#define SCROLL_LOCK_MODIFIER 0x0001
+#define NUMLOCK_MODIFIER     0x0002
+#define CAPSLOCK_MODIFIER    0x0004
+#define CONTROL_MODIFIER     0x0008
+#define SHIFT_MODIFIER       0x0010
+#define ALT_MODIFIER         0x0020
+#define FAKESHIFT_MODIFIER   0x0040
+#define EXTEND_MODIFIER      0x0080
+#define RELEASE_MODIFIER     0x0100
+
+enum 
+{
+  F1_KEY=0x80,F2_KEY,F3_KEY,F4_KEY,F5_KEY,F6_KEY,F7_KEY,F8_KEY,F9_KEY,F10_KEY,F11_KEY,F12_KEY,
+  HOME_KEY,UP_KEY,PAGE_UP_KEY,LEFT_KEY,RIGHT_KEY,END_KEY,DOWN_KEY,PAGE_DOWN_KEY,INSERT_KEY,DELETE_KEY
 };
 
-enum CursorKeys
-{
-  KEY_HOME = KEY_CURSORS,
-	KEY_END,
-	KEY_LEFT,
-	KEY_RIGHT,
-	KEY_UP,
-	KEY_DOWN,
-	KEY_PGDN,
-	KEY_PGUP,
-	KEY_INS,
-	KEY_NUM_5,
-	KEY_CURSOR_LAST
-};
-
-
-enum OtherKeys
+enum
 { 
-	KEY_BACKSPACE = 0x08,
-  KEY_TAB	=	0x09,	
-	KEY_ENTER = 0x0d,
-	KEY_ESC = 0x1b,
-	KEY_DEL = 0x7f,
-	//-----------------------
-	KEY_GUI_LEFT = KEY_OTHERS,
-	KEY_GUI_RIGHT,
-	KEY_GUI_APPS,
-	KEY_ACPI_POWER,
-	KEY_ACPI_WAKE,
-	KEY_ACPI_SLEEP,
+  LEFT_CONTROL_KEY=0xe0,LEFT_SHIFT_KEY,RIGHT_SHIFT_KEY,LEFT_ALT_KEY,CAPS_LOCK_KEY,
+  NUM_LOCK_KEY,SCROLL_LOCK_KEY,FAKE_LSHIFT_KEY,FAKE_RSHIFT_KEY,KEYPAD_KEY,
+  CONTROL_PRINTSCREEN_KEY,RIGHT_ALT_KEY,CONTROL_BREAK_KEY,RIGHT_CONTROL_KEY
 };
 
 #endif

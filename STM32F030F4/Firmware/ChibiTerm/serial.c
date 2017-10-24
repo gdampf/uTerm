@@ -72,3 +72,30 @@ void Putchar( uint8_t data )
 	
   USART1->CR1 |= USART_CR1_TXEIE;												// Enable Tx Empty interrupt
 }
+
+
+void PutStr(const char *string)
+{
+	while(string && *string)
+	  Putchar(*string++);
+}
+
+void Putint(uint8_t n)
+{	
+  if(n>9)
+    Putint(n/10);
+	Putchar((n%10)+'0');
+}
+
+void Puthex(uint8_t n)
+{
+ uint8_t c;
+  c=(n>>4)+'0';
+	if (c>'9')
+		c+=7;
+	Putchar(c);
+	c=(n&0x0f)+'0';
+	if (c>'9')
+		c+=7;
+	Putchar(c);
+}

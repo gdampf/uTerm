@@ -4,6 +4,10 @@
  * Created: March-24-16, 4:54:14 PM
  *  Author: K. C. Lee
  * Copyright (c) 2016 by K. C. Lee 
+ *
+ * All tables replaced Oct 2017 by Madis Kaal
+ * Copyright (c) 2017 Madis Kaal
+ *
  
  	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -23,156 +27,294 @@
 
 #include "ps2 table.h"
 
-const uint8_t Kbd_Code[]=
-{ 
-	// Unshifted	Shift
-	0, 0,																// 00
-	KEY_FN(9),KEY_FN(9),								// 01  F9
-	0, 0,																// 02
-	KEY_FN(5),KEY_FN(5), 								// 03  F5
-	KEY_FN(3),KEY_FN(3), 								// 04  F3
-	KEY_FN(1),KEY_FN(1), 								// 05  F1
-	KEY_FN(2),KEY_FN(2), 								// 06  F2
-	KEY_FN(12),KEY_FN(12),							// 07  F12
-	0, 0,																// 08
-	KEY_FN(10),KEY_FN(10), 							// 09  F10
-	KEY_FN(8),KEY_FN(8), 								// 0A  F8
-	KEY_FN(6),KEY_FN(6),								// 0B  F6
-	KEY_FN(4),KEY_FN(4), 								// 0C  F4
-	KEY_TAB,KEY_TAB, 										// 0D  TAB
-	'`','~', 														// 0E  ` or ~
-	0, 0,																// 0F
-	0, 0,																// 10
-	KEY_ALT,KEY_ALT, 										// 11  Left ALT
-	KEY_SHIFT,KEY_SHIFT, 								// 12  Left SHIFT
-	0, 0,																// 13
-	KEY_CTRL,KEY_CTRL,	 								// 14  Left Ctrl
-	'q','Q', 														// 15  Q
-	'1','!',														// 16  1 or !
-	0, 0,																// 17
-	0, 0,																// 18
-	0, 0,																// 19
-	'z','Z',														// 1A  Z
-	's','S',														// 1B  S
-	'a','A',														// 1C  A
-	'w','W',														// 1D  W
-	'2','@',														// 1E  2 or @
-	KEY_GUI_LEFT,KEY_GUI_LEFT,					// 1F
-	0, 0,																// 20
-	'c','C',														// 21  C
-	'x','X',														// 22  X
-	'd','D',														// 23  D
-	'e','E',														// 24  E
-	'4','$',														// 25  4 or $
-	'3','#',														// 26  3 or #
-	KEY_GUI_RIGHT,KEY_GUI_RIGHT,				// 27
-	0, 0,																// 28
-	' ',' ',														// 29  Space
-	'v','V',														// 2A  V
-	'f','F',														// 2B  F
-	't','T',														// 2C  T
-	'r','R',														// 2D  R
-	'5','%',														// 2E  5 or %
-	KEY_GUI_APPS,KEY_GUI_APPS,					// 2F
-	0, 0,																// 30
-	'n','N',														// 31  N
-	'b','B',														// 32  B
-	'h','H',														// 33  H
-	'g','G',									 					// 34  G
-	'y','Y',														// 35  Y
-	'6','^',														// 36  6 or ^
-	KEY_ACPI_POWER,KEY_ACPI_POWER,			// 37
-	0, 0,																// 38
-	0, 0,																// 39
-	'm','M',														// 3A  M
-	'j','J',														// 3B  J
-	'u','U',														// 3C  U
-	'7','&',														// 3D  7 or &
-	'8','*',														// 3E  8 or *
-	KEY_ACPI_SLEEP,KEY_ACPI_SLEEP,			// 3F
-	0, 0,																// 40
-	',','<',														// 41  , or <
-	'k','K',														// 42  K
-	'i','I',														// 43  I
-	'o','O',														// 44  O
-	'0',')',														// 45  0 or )
-	'9','(',														// 46  9 or (
-	0, 0,																// 47
-	0, 0,																// 48
-	'.','>',														// 49  . or >
-	'/','?',														// 4A  / or ?
-	'l','L',														// 4B  L
-	';',':',														// 4C  // or :
-	'p','P',														// 4D  P
-	'-','_',														// 4E  - or _
-	0, 0,																// 4F
-	0, 0,																// 50
-	0, 0,																// 51
-	'\'','"',														// 52  ' or "
-  0, 0,																// 53
-	'[','{',														// 54  [ or {
-	'=','+',														// 55  = OR +
-	0, 0,																// 56
-	0, 0,																// 57
-	KEY_CAP,KEY_CAP,		 								// 58  Caps Lock
-	KEY_SHIFT,KEY_SHIFT,								// 59  Right Shift
-	KEY_ENTER,KEY_ENTER,								// 5A  Enter
-	']','}',														// 5B  ] or }
-	0, 0,																// 5C	
-	'\\','|',														// 5D  \ or |
-	KEY_ACPI_WAKE,KEY_ACPI_WAKE,				// 5E
-	0, 0,																// 5F
-	0, 0,																// 60
-	0, 0,																// 61
-	0, 0,																// 62
-	0, 0,																// 63
-	0, 0,																// 64
-	0, 0,																// 65
-	KEY_BACKSPACE,KEY_BACKSPACE, 				// 66  Backspace
-	0, 0,																// 67
-	0, 0,																// 68
-	KEY_END,'1',												// 69  NUM - 1 or END
-	0, 0,																// 6A
-	KEY_LEFT,'4',												// 6B  NUM - 4 or LEFT
-	KEY_HOME,'7',												// 6C  NUM - 7 or HOME
-	0, 0,																// 6D
-	0, 0,																// 6E
-	0, 0,																// 6F
-	KEY_INS,'0',     										// 70  NUM - 0 or INS
-	KEY_DEL,'.',     										// 71  NUM - . or DEL
-	KEY_DOWN,'2',     									// 72  NUM - 2 or DOWN
-	KEY_NUM_5,'5',     									// 73  NUM - 5
-	KEY_RIGHT,'6',     									// 74  NUM - 6 or RIGHT
-	KEY_UP,'8',     										// 75  NUM - 8 or UP
-	KEY_ESC,KEY_ESC,										// 76  ESC
-	KEY_NUMLOCK,KEY_NUMLOCK,						// 77  NUM LOCK
-	KEY_FN(11), KEY_FN(11),			  			// 78  F11
-	'+', '+',						    						// 79  NUM - + (Plus)
-	KEY_PGDN,'3',     									// 7A  NUM 3 or PAGE DOWN
-	'-','-',     												// 7B  NUM - - (Minus)
-	'*','*',						     						// 7C  NUM - *
-	KEY_PGUP,'9',     									// 7D  NUM - 9 or PAGE UP
-	KEY_SCROLL,KEY_SCROLL,							// 7E  SCROLL LOCK
-	0, 0,  															// 7F	
-	0, 0,  															// 80
-	0, 0,  															// 81
-	0, 0,  															// 82
-	KEY_FN(7),   												// 83  F7
+const uint8_t Scancode_Translations[] =
+{
+ 0xff,0x43,0x41,0x3f,0x3d,0x3b,0x3c,0x58,0x64,0x44,0x42,0x40,0x3e,0x0f,0x29,0x59,
+ 0x65,0x38,0x2a,0x70,0x1d,0x10,0x02,0x5a,0x66,0x71,0x2c,0x1f,0x1e,0x11,0x03,0x5b,
+ 0x67,0x2e,0x2d,0x20,0x12,0x05,0x04,0x5c,0x68,0x39,0x2f,0x21,0x14,0x13,0x06,0x5d,
+ 0x69,0x31,0x30,0x23,0x22,0x15,0x07,0x5e,0x6a,0x72,0x32,0x24,0x16,0x08,0x09,0x5f,
+ 0x6b,0x33,0x25,0x17,0x18,0x0b,0x0a,0x60,0x6c,0x34,0x35,0x26,0x27,0x19,0x0c,0x61,
+ 0x6d,0x73,0x28,0x74,0x1a,0x0d,0x62,0x6e,0x3a,0x36,0x1c,0x1b,0x75,0x2b,0x63,0x76,
+ 0x55,0x56,0x77,0x78,0x79,0x7a,0x0e,0x7b,0x7c,0x4f,0x7d,0x4b,0x47,0x7e,0x7f,0x6f,
+ 0x52,0x53,0x50,0x4c,0x4d,0x48,0x01,0x45,0x57,0x4e,0x51,0x4a,0x37,0x49,0x46,0x54,
+ 0x80,0x81,0x82,0x41,0x54,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f
 };
 
-const uint8_t ANSI_FN_Code[] =
+
+const uint8_t Unshifted_Regular[] = 
 {
-	// unshifted, shift, Ctrl,	Alt,	
-	 59, 84, 94,104,		//F1
-   60, 85, 95,105,		//F2
-   61, 86, 96,106,		//F3
-   62, 87, 97,107,		//F4
-   63, 88, 98,108,		//F5
-   64, 89, 99,109,		//F6
-   65, 90,100,110,		//F7
-   66, 91,101,111,		//F8
-   67, 92,102,112,		//F9
-   68, 93,103,113,		//F10
-  133,135,137,139,		//F11
-  134,136,138,140			//F12
+ 0, // nothing #00
+ 27, // esc #01
+ '1',// (1!) #02
+ '2',// (2@) #03
+ '3',// (3#) #04
+ '4',// (4$E) #05 
+ '5',// (5%) #06 
+ '6',// (6^) #07 
+ '7',// (7&) #08 
+ '8',// (8*) #09 
+ '9',// (9() # 0a
+ '0',// (0)) # 0b
+ '-',// (-_) # 0c
+ '=',// (=+) # 0d
+ 8,// (Backspace) # 0e 
+ 9,// (Tab) # 0f
+ 'q',// (Q) # 10
+ 'w',// (W) # 11
+ 'e',// (E) # 12
+ 'r',// (R) # 13
+ 't',// (T) # 14
+ 'y',// (Y) # 15
+ 'u',// (U) # 16
+ 'i',// (I) # 17
+ 'o',// (O) # 18
+ 'p',// (P) # 19
+ '[',// ([{) # 1a
+ ']',// (]}) # 1b
+ 13,// (Enter) # 1c
+ LEFT_CONTROL_KEY,// (LCtrl) # 1d
+ 'a',// (A) # 1e
+ 's',// (S) # 1f
+ 'd',// (D) # 20
+ 'f',// (F) # 21
+ 'g',// (G) # 22
+ 'h',// (H) # 23
+ 'j',// (J) # 24
+ 'k',// (K) # 25
+ 'l',// (L) # 26
+ ';',// (;:) # 27
+ '\'',// ('") # 28
+ '`',// (`~) # 29
+ LEFT_SHIFT_KEY,// (LShift) # 2a
+ '\\',// (\|) on a 102-key keyboard # 2b
+ 'z',// (Z) # 2c
+ 'x',// (X) # 2d
+ 'c',// (C) # 2e
+ 'v',// (V) # 2f
+ 'b',// (B) # 30
+ 'n',// (N) # 31
+ 'm',// (M) # 32
+ ',',// (,<) # 33
+ '.',// (.>) # 34
+ '/',// (/?) # 35
+ RIGHT_SHIFT_KEY,// (RShift) # 36
+ '*',// (Keypad-*) or (*/PrtScn) on a 83/84-key keyboard # 37
+ LEFT_ALT_KEY,// (LAlt) # 38
+ ' ',// (Space bar) # 39
+ CAPS_LOCK_KEY,// (CapsLock) # 3a
+ F1_KEY,// (F1) # 3b
+ F2_KEY,// (F2) # 3c
+ F3_KEY,// (F3) # 3d
+ F4_KEY,// (F4) # 3e
+ F5_KEY,// (F5) # 3f
+ F6_KEY,// (F6) # 40
+ F7_KEY,// (F7) # 41
+ F8_KEY,// (F8) # 42
+ F9_KEY,// (F9) # 43
+ F10_KEY,// (F10) # 44
+ NUM_LOCK_KEY,// (NumLock) # 45
+ SCROLL_LOCK_KEY,// (ScrollLock) # 46
+ KEYPAD_KEY,// (Keypad-7/Home) # 47 
+ KEYPAD_KEY,// (Keypad-8/Up) # 48
+ KEYPAD_KEY,// (Keypad-9/PgUp) # 49
+ KEYPAD_KEY,// (Keypad--) # 4a
+ KEYPAD_KEY,// (Keypad-4/Left) # 4b 
+ KEYPAD_KEY,// (Keypad-5) # 4c
+ KEYPAD_KEY,// (Keypad-6/Right) # 4d 
+ KEYPAD_KEY,// (Keypad-+) # 4e
+ KEYPAD_KEY,// (Keypad-1/End) # 4f 
+ KEYPAD_KEY,// (Keypad-2/Down) # 50
+ KEYPAD_KEY,// (Keypad-3/PgDn) # 51
+ KEYPAD_KEY,// (Keypad-0/Ins) # 52
+ KEYPAD_KEY,// (Keypad-./Del) # 53
+ 0,// (Alt-SysRq) on a 84+ key keyboard # 54
+ 0,// less common # 55
+ 0, //unlabelled key to the left or to the right of the left Alt key #56
+ F11_KEY, // F11 # 57
+ F12_KEY // F12 # 58
+ // anything with higher number is not standard and not recognized
 };
+
+const uint8_t Shifted_Regular[] =
+{
+ 0, // nothing #00
+ 27, // esc #01
+ '!',// (1!) #02
+ '@',// (2@) #03
+ '#',// (3#) #04
+ '$',// (4$E) #05 
+ '%',// (5%) #06 
+ '^',// (6^) #07 
+ '&',// (7&) #08 
+ '*',// (8*) #09 
+ '(',// (9() # 0a
+ ')',// (0)) # 0b
+ '_',// (-_) # 0c
+ '+',// (=+) # 0d
+ 8,// (Backspace) # 0e 
+ 9,// (Tab) # 0f
+ 'Q',// (Q) # 10
+ 'W',// (W) # 11
+ 'E',// (E) # 12
+ 'R',// (R) # 13
+ 'T',// (T) # 14
+ 'Y',// (Y) # 15
+ 'U',// (U) # 16
+ 'I',// (I) # 17
+ 'O',// (O) # 18
+ 'P',// (P) # 19
+ '{',// ([{) # 1a
+ '}',// (]}) # 1b
+ 13,// (Enter) # 1c
+ LEFT_CONTROL_KEY,// (LCtrl) # 1d
+ 'A',// (A) # 1e
+ 'S',// (S) # 1f
+ 'D',// (D) # 20
+ 'F',// (F) # 21
+ 'G',// (G) # 22
+ 'H',// (H) # 23
+ 'J',// (J) # 24
+ 'K',// (K) # 25
+ 'L',// (L) # 26
+ ':',// (;:) # 27
+ '"',// ('") # 28
+ '~',// (`~) # 29
+ LEFT_SHIFT_KEY,// (LShift) # 2a
+ '|',// (\|) on a 102-key keyboard # 2b
+ 'Z',// (Z) # 2c
+ 'X',// (X) # 2d
+ 'C',// (C) # 2e
+ 'V',// (V) # 2f
+ 'B',// (B) # 30
+ 'N',// (N) # 31
+ 'M',// (M) # 32
+ '<',// (,<) # 33
+ '>',// (.>) # 34
+ '?',// (/?) # 35
+ RIGHT_SHIFT_KEY,// (RShift) # 36
+ '*',// (Keypad-*) or (*/PrtScn) on a 83/84-key keyboard # 37
+ LEFT_ALT_KEY,// (LAlt) # 38
+ ' ',// (Space bar) # 39
+ CAPS_LOCK_KEY,// (CapsLock) # 3a
+ F1_KEY,// (F1) # 3b
+ F2_KEY,// (F2) # 3c
+ F3_KEY,// (F3) # 3d
+ F4_KEY,// (F4) # 3e
+ F5_KEY,// (F5) # 3f
+ F6_KEY,// (F6) # 40
+ F7_KEY,// (F7) # 41
+ F8_KEY,// (F8) # 42
+ F9_KEY,// (F9) # 43
+ F10_KEY,// (F10) # 44
+ NUM_LOCK_KEY,// (NumLock) # 45
+ SCROLL_LOCK_KEY,// (ScrollLock) # 46
+ KEYPAD_KEY,// (Keypad-7/Home) # 47 
+ KEYPAD_KEY,// (Keypad-8/Up) # 48
+ KEYPAD_KEY,// (Keypad-9/PgUp) # 49
+ KEYPAD_KEY,// (Keypad--) # 4a
+ KEYPAD_KEY,// (Keypad-4/Left) # 4b 
+ KEYPAD_KEY,// (Keypad-5) # 4c
+ KEYPAD_KEY,// (Keypad-6/Right) # 4d 
+ KEYPAD_KEY,// (Keypad-+) # 4e
+ KEYPAD_KEY,// (Keypad-1/End) # 4f 
+ KEYPAD_KEY,// (Keypad-2/Down) # 50
+ KEYPAD_KEY,// (Keypad-3/PgDn) # 51
+ '0',// (Keypad-0/Ins) # 52
+ '.',// (Keypad-./Del) # 53
+ 0,// (Alt-SysRq) on a 84+ key keyboard # 54
+ 0,// less common # 55
+ 0, //unlabelled key to the left or to the right of the left Alt key #56
+ F11_KEY, // F11 # 57
+ F12_KEY // F12 # 
+ // anything with higher number is not standard and not recognized
+};
+
+
+const keymap_t Keypad_Numeric[] =
+{
+  { 0x37, '*'},// (Keypad-*) or (*/PrtScn) on a 83/84-key keyboard # 37
+  { 0x47, '7'},// (Keypad-7/Home) # 47 
+  { 0x48, '8'},// (Keypad-8/Up) # 48
+  { 0x49, '9'},// (Keypad-9/PgUp) # 49
+  { 0x4a, '-'},// (Keypad--) # 4a
+  { 0x4b, '4'},// (Keypad-4/Left) # 4b 
+  { 0x4c, '5'},// (Keypad-5) # 4c
+  { 0x4d, '6'},// (Keypad-6/Right) # 4d 
+  { 0x4e, '+'},// (Keypad-+) # 4e
+  { 0x4f, '1'},// (Keypad-1/End) # 4f 
+  { 0x50, '2'},// (Keypad-2/Down) # 50
+  { 0x51, '3'},// (Keypad-3/PgDn) # 51
+  { 0x52, '0'},// (Keypad-0/Ins) # 52
+  { 0x53, '.'} // (Keypad-./Del) # 53
+};
+
+const keymap_t Keypad_Regular[] =
+{
+  { 0x37, '*'},// (Keypad-*) or (*/PrtScn) on a 83/84-key keyboard # 37
+  { 0x47, HOME_KEY },// (Keypad-7/Home) # 47 
+  { 0x48, UP_KEY },// (Keypad-8/Up) # 48
+  { 0x49, PAGE_UP_KEY },// (Keypad-9/PgUp) # 49
+  { 0x4a, '-'},// (Keypad--) # 4a
+  { 0x4b, LEFT_KEY},// (Keypad-4/Left) # 4b 
+  { 0x4c, '5'},// (Keypad-5) # 4c
+  { 0x4d, RIGHT_KEY},// (Keypad-6/Right) # 4d 
+  { 0x4e, '+'},// (Keypad-+) # 4e
+  { 0x4f, END_KEY},// (Keypad-1/End) # 4f 
+  { 0x50, DOWN_KEY},// (Keypad-2/Down) # 50
+  { 0x51, PAGE_DOWN_KEY},// (Keypad-3/PgDn) # 51
+  { 0x52, INSERT_KEY},// (Keypad-0/Ins) # 52
+  { 0x53, DELETE_KEY} // (Keypad-./Del) # 53
+};
+
+// codes after 0xe0
+const keymap_t Escaped_Regular[] =
+{
+  { 0x1c, 13 },  // (keypad Enter)
+  { 0x1d, RIGHT_CONTROL_KEY}, // (RCtrl)
+  { 0x2a, FAKE_LSHIFT_KEY}, // (fake lshift)
+  { 0x35, '/' }, // (keypad-/)
+  { 0x36, FAKE_RSHIFT_KEY}, // (fake rshift)
+  { 0x37, CONTROL_PRINTSCREEN_KEY}, // (Ctrl-PrtScn)
+  { 0x38, RIGHT_ALT_KEY}, // (RAlt)
+  { 0x46, CONTROL_BREAK_KEY}, // (Ctrl-Break)
+  { 0x47, HOME_KEY }, // (Home)
+  { 0x48, UP_KEY }, // (Up)
+  { 0x49, PAGE_UP_KEY }, // (PgUp)
+  { 0x4b, LEFT_KEY }, // (Left)
+  { 0x4d, RIGHT_KEY }, // (Right)
+  { 0x4f, END_KEY }, // (End)
+  { 0x50, DOWN_KEY }, // (Down)
+  { 0x51, PAGE_DOWN_KEY }, // (PgDn)
+  { 0x52, INSERT_KEY }, // (Insert)
+  { 0x53, DELETE_KEY }  // (Delete)
+
+};
+
+// pseudo-keycodes 0x80..0xE0 range are mapped to string from this table
+// the string is sent out to serial port prefixed with "<Esc>"
+const char *Ansi_Key_Sequences[] =
+{
+  "1", // F1 #82 VT100 only has 4 function keys, the remaining behave as VT220
+  "2", // F2 #83
+  "3", // F3 #84
+  "4", // F4 #85
+  "5",  // F5 #86
+  "6", // F6 #87
+  "7", // F7 #88
+  "8", // F8 #89
+  "9", // F9 #8a
+  "0", // F10 #8b
+  "!", // F11 #8c
+  "@", // F12 #8d
+  "[1~", // HOME_KEY
+  "OA", // UP_KEY
+  "[5~", // PAGE_UP_KEY
+  "OD", // LEFT_KEY
+  "OC", // RIGHT_KEY
+  "[4~", // END_KEY
+  "OB", // DOWN_KEY
+  "[6~", // PAGE_DOWN_KEY
+  "[2~", // INSERT_KEY
+  "[3~", // DELETE_KEY
+};
+

@@ -4,6 +4,11 @@
  * Created: March-11-16, 5:50:49 PM
  *  Author: K. C. Lee
  * Copyright (c) 2016 by K. C. Lee 
+ *
+ * Keystroke decoding and VT output sequences by Madis Kaal
+ * Copyright (c) 2017 Madis Kaal
+ *
+
  
  	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -26,14 +31,23 @@
 #include "ps2.h"
 #include "ps2 table.h"
 #include "serial.h"
+#include "ansi.h"
 
 FIFO_DECL(PS2_Buf,PS2_FIFO_Size);
 
-static volatile PS2_IF_t PS2_IF;
-static PS2_Modifier_t PS2_Modifier;
-static PS2_State_t PS2_Fsm;
+#ifndef COUNTOF
+#define COUNTOF(arr) (sizeof(arr)/sizeof(arr[0]))
+#endif
+#define toupper(c) (c-((c>='a' && c<='z')?('a'-'A'):0))
+#define isletter(c) ((c>='A' && c<='Z')||(c>='a' && c<='z'))
+#define isctrl(c) ((c>='@' && c<='_')||(c>='a' && c<='z'))
 
+static uint16_t Modifiers;
+static volatile PS2_IF_t PS2_IF;
+static PS2_State_t PS2_Fsm;
 static uint8_t PS2_Cmd,PS2_Cmd_Arg;
+
+#include "ps2 table.c"
 
 void PS2_Init(void)
 {
@@ -43,11 +57,11 @@ void PS2_Init(void)
 	
 	PS2_IF.Init = 0;
 	PS2_Fsm.State = PS2_UNKNOWN;
-	PS2_Modifier.Init = 0;
+	Modifiers=0;
 	FIFO_Clear((FIFO*)PS2_Buf);
 	
 	// NVIC IRQ
-  NVIC_SetPriority(EXTI0_1_IRQn,PS2_IRQ_PRIORITY);// Lowest priority																	// Highest priority
+  NVIC_SetPriority(EXTI0_1_IRQn,PS2_IRQ_PRIORITY);
   NVIC_EnableIRQ(EXTI0_1_IRQn);
 }
 
@@ -146,8 +160,161 @@ void PS2_Update_LED(uint8_t LED)
 {	
 	PS2_Fsm.State = PS2_CMD;	
 	PS2_Cmd = PS2_KBD_CMD_LED;
-	PS2_Cmd_Arg = LED;			
+	PS2_Cmd_Arg = LED&7;
 	PS2_Send(PS2_Cmd);
+}
+
+// ------------------------------------------------------------------
+
+void NumLockOn(void)
+{
+  Modifiers&=~NUMLOCK_MODIFIER;
+	PS2_Update_LED(Modifiers);
+}
+
+void NumLockOff(void)
+{
+  Modifiers|=NUMLOCK_MODIFIER;
+	PS2_Update_LED(Modifiers);
+}
+
+static uint8_t Lookup_Key(const keymap_t *table,uint8_t count,uint8_t k)
+{
+uint8_t i;
+  for (i=0;i<count;i++)
+  {
+    if (k==table->key)
+      return table->character;
+		table++;
+	}
+	return 0;
+}
+
+static uint8_t Remap_Key(const uint8_t *table,uint8_t count,uint8_t k)
+{
+	if (k<count)
+		return table[k];
+	return k;
+}
+
+static void Send_Key(uint8_t c)
+{
+	if (!c)
+    return;
+	if (c<0x80)
+	{
+	  if (Modifiers&CONTROL_MODIFIER)
+		{
+			if isctrl(c)
+				Putchar(toupper(c)-'@');
+			return;
+		}
+		if (isletter(c))
+		{
+	    if (Modifiers&CAPSLOCK_MODIFIER)
+			  c=toupper(c);
+		}
+		Putchar(c);
+		return;
+	}
+	if (c<0xe0)
+	{
+		c-=0x80;
+		if (c<(sizeof(Ansi_Key_Sequences)/sizeof(Ansi_Key_Sequences[0])))
+		{
+			Putchar(27);
+			PutStr(Ansi_Key_Sequences[c]);
+		}
+		return;
+	}
+}
+
+static void Key_Up(uint8_t key)
+{
+	uint8_t c;
+	key=Remap_Key(Scancode_Translations,COUNTOF(Scancode_Translations),key);
+	if (Modifiers&EXTEND_MODIFIER) 
+	{
+		c=Lookup_Key(Escaped_Regular,COUNTOF(Escaped_Regular),key);
+	}
+	else {
+		if ((Modifiers&SHIFT_MODIFIER || Modifiers&FAKESHIFT_MODIFIER))
+			c=Remap_Key(Shifted_Regular,COUNTOF(Shifted_Regular),key); 
+		else
+			c=Remap_Key(Unshifted_Regular,COUNTOF(Unshifted_Regular),key);
+	}
+  switch (c) 
+  {
+    case LEFT_CONTROL_KEY:
+      Modifiers&=~CONTROL_MODIFIER;
+      return;
+    case LEFT_SHIFT_KEY:
+    case RIGHT_SHIFT_KEY:
+      Modifiers&=~SHIFT_MODIFIER;
+      return;
+    case LEFT_ALT_KEY:
+      Modifiers&=~ALT_MODIFIER;
+      return;
+    case FAKE_LSHIFT_KEY:
+    case FAKE_RSHIFT_KEY:
+      Modifiers&=~FAKESHIFT_MODIFIER;
+      return;
+	}
+}
+
+static void Key_Down(uint8_t key)
+{
+uint8_t c;
+	key=Remap_Key(Scancode_Translations,COUNTOF(Scancode_Translations),key);
+	if ((Modifiers&SHIFT_MODIFIER || Modifiers&FAKESHIFT_MODIFIER))
+		c=Remap_Key(Shifted_Regular,COUNTOF(Shifted_Regular),key); 
+	else
+		c=Remap_Key(Unshifted_Regular,COUNTOF(Unshifted_Regular),key);
+	if (!c)
+	  return;
+  switch (c) 
+  {
+    case LEFT_CONTROL_KEY:
+      Modifiers|=CONTROL_MODIFIER;
+      return;
+    case LEFT_SHIFT_KEY:
+    case RIGHT_SHIFT_KEY:
+      Modifiers|=SHIFT_MODIFIER;
+      return;
+    case LEFT_ALT_KEY:
+      Modifiers|=ALT_MODIFIER;
+      return;
+    case CAPS_LOCK_KEY:
+      Modifiers^=CAPSLOCK_MODIFIER;
+			PS2_Update_LED(Modifiers);
+		  return;
+    case NUM_LOCK_KEY:
+      Modifiers^=NUMLOCK_MODIFIER;
+			PS2_Update_LED(Modifiers);
+      return;
+    case SCROLL_LOCK_KEY:
+      Modifiers^=SCROLL_LOCK_MODIFIER;
+			PS2_Update_LED(Modifiers);
+      return;    
+    case FAKE_LSHIFT_KEY:
+    case FAKE_RSHIFT_KEY:
+      Modifiers|=FAKESHIFT_MODIFIER;
+      return;
+    case CONTROL_PRINTSCREEN_KEY:
+    case RIGHT_ALT_KEY:
+    case CONTROL_BREAK_KEY:
+      break;
+    default:
+			if (c==KEYPAD_KEY)
+			{
+		    if (Modifiers&NUMLOCK_MODIFIER)
+		      c=Lookup_Key(Keypad_Numeric,COUNTOF(Keypad_Numeric),key);
+			  else
+			  	c=Lookup_Key(Keypad_Regular,COUNTOF(Keypad_Regular),key);
+			}
+			Send_Key(c);
+			break;
+  }
 }
 
 void PS2_Task(void)
@@ -155,7 +322,6 @@ void PS2_Task(void)
 	uint8_t ps2_data;
 
 	ps2_data = Getc((FIFO*)PS2_Buf);
-	
 	if (ps2_data ==PS2_KBD_ERR_CODE)
 	{ 
 		PS2_Fsm.State = PS2_UNKNOWN;
@@ -167,7 +333,6 @@ void PS2_Task(void)
 		PS2_Fsm.State = PS2_KBD_RDY;						// Power on reset
 		return;
 	}
-	
 	switch(PS2_Fsm.State)
 	{
 		case PS2_UNKNOWN:
@@ -184,22 +349,27 @@ void PS2_Task(void)
 		case PS2_KBD_RDY:		
 		  switch(ps2_data)
 			{
-				case PS2_KBD_CODE_EXTENDED:
-					PS2_Modifier.Attr.Extend = 1;
+				case PS2_KBD_CODE_EXTENDED: // e0
+					Modifiers|=EXTEND_MODIFIER;
 				  break;
 				
-				case PS2_KBD_CODE_RELEASE:
-					PS2_Modifier.Attr.Release = 1;
+				case PS2_KBD_CODE_RELEASE:  // f0
+					Modifiers|=RELEASE_MODIFIER;
 				  break;
 				
 				default:
-					if (ps2_data >0)
-			    { 
-						PS2_Decode(ps2_data);
+					if (ps2_data>0)
+			    {
+						//PS2_Decode(ps2_data);
+						if (Modifiers&RELEASE_MODIFIER)
+						  Key_Up(ps2_data);
+						else
+						  Key_Down(ps2_data);
+						Modifiers&=~(RELEASE_MODIFIER|EXTEND_MODIFIER);
 					}
 				}		
 		  break;
-			
+	
 		case PS2_CMD:					
 			switch(ps2_data)
 			{
@@ -224,102 +394,3 @@ void PS2_Task(void)
 	}
 }
 
-void PS2_Decode(uint8_t key_code)
-{
-	uint8_t key;
-	
-	if (key_code <= MAX_KEYTBL)
-	  key = Kbd_Code[key_code*2];	
-	
-  if(KEY_TYPE(key)==KEY_MODIFERS)
-		Key_Modifers(key);		
-	else if(!PS2_Modifier.Attr.Release)														// Only make events
-	{
-		switch(KEY_TYPE(key))
-		{			
-			case KEY_FN_KEYS:
-				Key_FN(key);
-				break;
-			
-			case KEY_CURSORS:
-				Key_Cursor(key);
-				break;
-			
-			case KEY_OTHERS:
-				Key_Other(key);
-				break;
-			
-			default:
-			  if(PS2_Modifier.Attr.Ctrl)														// Control keys
-			  {
-					const char Ctrl_Str[] = "[\\]`/";
-					char *pos= strchr(Ctrl_Str,key);
-					
-					if (key ==' ')																			// Ctrl-Space
-						key = 0;
-					else if(isalpha(key))																// A-Z
-						key = key - 'a' + 1;			
-			    else if (pos)
-						key = (pos - Ctrl_Str)+KEY_ESC;
-					else
-						return;
-				}
-				// handles Alt here
-				
-				else if(isprint(key))
-				{
-					if(isalpha(key))																		// Logical XOR caps lock & Shift
-          {
-            if(!!(PS2_Modifier.Attr.LED & PS2_MOD_CAPS)!= !!PS2_Modifier.Attr.Shift)
-						  key = Kbd_Code[key_code*2+1];
-					}
-					else if (PS2_Modifier.Attr.Shift)										// ignore caps lock
-					  key = Kbd_Code[key_code*2+1];			
-				}
-					
-				Putchar(key);						
-		}
-	}
-	PS2_Modifier.Attr.Extend = PS2_Modifier.Attr.Release = 0;
-}	
-	
-void Key_Modifers(uint8_t key)	
-{	
-	switch(key)
-	{
-		case KEY_SCROLL:
-		case KEY_NUMLOCK:
-		case KEY_CAP:
-			if (PS2_Modifier.Attr.Release)
-				PS2_Fsm.PrevKey = 0;
-			else if (PS2_Fsm.PrevKey != PREV_MODKEY(key))
-			{	
-				PS2_Fsm.PrevKey = PREV_MODKEY(key);
-				PS2_Modifier.Attr.LED ^= MODIFIER(key);
-				PS2_Update_LED(PS2_Modifier.Attr.LED);
-			}
-			break;
-
-		case KEY_SHIFT:
-			PS2_Modifier.Attr.Shift = !PS2_Modifier.Attr.Release;
-		  break;
-		case KEY_CTRL:
-			PS2_Modifier.Attr.Ctrl = !PS2_Modifier.Attr.Release;
-			break;
-		case KEY_ALT:
-			PS2_Modifier.Attr.Alt = !PS2_Modifier.Attr.Release;
-			break;
-	}
-}
-	
-void Key_FN(uint8_t key)
-{
-}
-
-void Key_Cursor(uint8_t key)
-{
-}
-
-void Key_Other(uint8_t key)
-{
-}
