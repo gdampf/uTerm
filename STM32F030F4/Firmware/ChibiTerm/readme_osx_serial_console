@@ -1,0 +1,52 @@
+Configuring OSX for attaching serial console to it.
+---------------------------------------------------
+1. connect usb/serial converter, and not the device name that it gets. usually there are
+two variations, you want the one beginning with "cu." The built-in FTDI driver created
+"cu.usbserial-A50285BI" for me.
+
+2. create /Library/LaunchDaemons/serialconsole.plist, with below contents (change the
+device name if needed)
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>Label</key>
+        <string>serialconsole</string>
+        <key>ProgramArguments</key>
+        <array>
+                <string>/usr/libexec/getty</string>
+                <string>vt100.115200</string>
+                <string>cu.usbserial-A50285BI</string>
+        </array>
+        <key>KeepAlive</key>
+        <true/>
+</dict>
+</plist>
+ 
+3. Edit /etc/gettytab, add the lines below into fixed speed entires:
+
+vt100.115200:115200-baud:\
+        :np:sp#115200:cb:ce:ck:lc:im=\r\nDarwin/BSD (%h) (%t)\r\n\r\n:tt=vt100:
+
+this is also where you can change the actual baud rate, ie. for 57600 bps:
+
+vt100.115200:57600-baud:\
+        :np:sp#57600:cb:ce:ck:lc:im=\r\nDarwin/BSD (%h) (%t)\r\n\r\n:tt=vt100:
+
+4. sudo launchctl load -F /Library/LaunchDaemons/serialconsole.plist
+
+5. sudo launchctl start serialconsole
+
+you should now have a login prompt on your terminal
+
+to edit baud rate or just terminate, do
+
+sudo launchctl stop serialconsole
+sudo launchctl unload -F /Library/LaunchDaemons/serialconsole.plist
+
+6. Once logged in on the serial terminal, set the terminal size with:
+
+stty rows 30
+stty columns 80
+export LINES=30
