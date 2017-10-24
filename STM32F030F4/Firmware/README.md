@@ -11,6 +11,9 @@ Source code distributed under GPLV3 except the font file and startup_stm32f030.s
 startup_stm32f030.s:
 http://www.st.com/software_license_agreement_liberty_v2
 
+fontedit.py by Madis Kaal is distributed with BSD license
+See http://www.nomad.ee
+
 VGA font "Less Perfect DOS VGA" is converted from:
 http://laemeur.sdf.org/fonts/
 "More Perfect DOS VGA and Less Perfect DOS VGA are both free for all use, 

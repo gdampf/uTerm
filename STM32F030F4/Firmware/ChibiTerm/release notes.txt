@@ -5,7 +5,8 @@ I have cleaned up the code a bit and squeeze the code for RAM (40 bytes free).
 It is stable enough to be used as a dumb terminal, but incomplete as the ANSI 
 escape code handling and keyboard handling are not yet finished.
 
-Ver. 1.0 - VT100 emulation - 24th Oct 2017 by Madis Kaal
+Ver. 1.0 - VT100 emulation - 24th Oct 2017 by Madis Kaal <mast@nomad.ee> 
+  http://www.nomad.ee
 
 * added full 256 character bitmap font where upper half is in inverse, so
   that line drawing characters and inverse text are available via standard
@@ -23,3 +24,11 @@ Ver. 1.0 - VT100 emulation - 24th Oct 2017 by Madis Kaal
   layout currently mapped, as character sets are only US-ASCII anyway.
 * added quick and dirty font editor (fontedit.py) for tweaking the font
   files
+* Added v6 schematics and rough PCB layout with mostly through-hole parts
+  under hardware section, showing all parts required to build hardware as
+  complete unit with connectors. The only real change is added level
+  shifters for keyboard interface instead of dodgy clamping diodes on clock
+  and data lines.
+* added .hex file into repository so that you dont have to install Keil
+  tools if you just want to build it.
+

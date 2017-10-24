@@ -1,5 +1,8 @@
 This is a STM32F030F4 VGA library + project for HaD 2016 Contest Entry.
 
+VT100 emulation, font editor, 16-line font, and support for inverse fonts
+added by Madis Kaal <mast@nomad.ee> http://www.nomad.ee
+
 Project webpage: 
 https://hackaday.io/project/9992
 
@@ -45,5 +48,5 @@ If you want to sell this and want a different licensing term, please contact me.
 -------------------------------------------------------------------------------
 STM32F030F4/Firmware/
 
-Source code distributed under GPLV3.
-
+Source code distributed under GPLV3, with exception of fontedit.py that is
+distributed under BSD license.
