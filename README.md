@@ -1,7 +1,8 @@
 This is the source modified for the uTerm (A071218) forked from the Madis Kaal 
 repositury (forked from the original repository of K. C. Lee: 
-https://github.com/FPGA-Computer/STM32F030F4-VGA)
+https://github.com/FPGA-Computer/STM32F030F4-VGA) 
 
+------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 
 This is a STM32F030F4 VGA library + project for HaD 2016 Contest Entry.
