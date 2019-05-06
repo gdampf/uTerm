@@ -5,13 +5,10 @@ https://github.com/FPGA-Computer/STM32F030F4-VGA)
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 
-This is a STM32F030F4 VGA library + project for HaD 2016 Contest Entry.
 
 VT100 emulation, font editor, 16-line font, and support for inverse fonts
 added by Madis Kaal <mast@nomad.ee> http://www.nomad.ee
 
-Project webpage: 
-https://hackaday.io/project/9992
 
 The individual license(s) are in each directories.
 
