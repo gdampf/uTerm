@@ -1,5 +1,5 @@
 This is the source modified for the uTerm (A071218) forked from the Madis Kaal 
-repositury (forked from the original repository of K. C. Lee: 
+repository (forked from the original repository of K. C. Lee: 
 https://github.com/FPGA-Computer/STM32F030F4-VGA) 
 
 ------------------------------------------------------------------------------
