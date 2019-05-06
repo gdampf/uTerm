@@ -25,8 +25,6 @@ http://www.pellesc.de/index.php?page=start&lang=en
 - "GLCD Font Creator" MikroElektronika
 http://www.mikroe.com/glcd-font-creator/
 
-- Project webpage:
-https://hackaday.io/project/9992/log/33214
 
 Code in this directory is licensed under "Simplified BSD License"
 
