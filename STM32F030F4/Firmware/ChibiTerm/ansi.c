@@ -8,6 +8,12 @@
  * VT100/ANSI terminal emulation by Madis Kaal <mast@nomad.ee>
  * Copyright (c) 2017 by Madis Kaal
  *
+ 
+ // ********************************************************************
+ // Changes for the uTerm A071218 by J4F (2019).
+ // Search the "uTerm" string to find the changes                   
+ // 
+ // ********************************************************************
   
  	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -413,7 +419,14 @@ void ControlCode(uint8_t Ch)
 	  case Char_NUL: // completely ignore
 	    return;
 	  case Char_ENQ:
-	    Putchar(Char_ACK);
+			
+			// ********************************************************************
+			// Changes for the uTerm A071218:
+			// The "Char_EN" has been disabled to avoid to interfere
+			// with the "SER_USB" port if used
+			// ********************************************************************
+		
+	    //Putchar(Char_ACK);
 	    break;
 		case Char_BEL: // TODO: add speaker?
 		  break;
@@ -632,6 +645,14 @@ uint8_t i;
 		  }
 		  break;
 		case 'n': // device status report
+			
+			// ********************************************************************
+			// Changes for the uTerm A071218:
+			// The "device status report" has been disabled to avoid to interfere
+			// with the "SER_USB" port if used
+			// ********************************************************************
+		
+			/*
 		  switch (CSI.Parm[0])
 		  {
 		    case 6: // cursor position
@@ -653,6 +674,7 @@ uint8_t i;
 					Putchar('R');
 					break;
 			}
+			*/
 		  break;
 		case 's': // save cursor position (and attributes)
 		  Cursor_SavePosition();
@@ -715,8 +737,15 @@ uint8_t i;
 			}
 		  break;
 		case 'c': // identify terminal
-		  Putchar(27);
-		  PutStr("[?1;0c"); // 80x24 vanilla VT100 with inverse attribute
+			
+			// ********************************************************************
+			// Changes for the uTerm A071218:
+			// The "identify terminal" has been disabled to avoid to interfere
+			// with the "SER_USB" port if used
+			// ********************************************************************
+			
+		  //Putchar(27);
+		  //PutStr("[?1;0c"); // 80x24 vanilla VT100 with inverse attribute
 		  break;
 		case 'r': // scrolling region
 		  ANSI_Prefs.ScrollingTop=CSI.Parm[0];
