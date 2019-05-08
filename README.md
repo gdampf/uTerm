@@ -1,4 +1,4 @@
-This is the source modified for the uTerm (A071218) forked from the Madis Kaal 
+These are the sources modified for the uTerm (A071218) forked from the Madis Kaal 
 repository (forked from the original repository of K. C. Lee: 
 https://github.com/FPGA-Computer/STM32F030F4-VGA. Original project 
 page: https://hw-by-design.blogspot.com/2018/07/low-cost-vga-terminal-module-project.html) 
