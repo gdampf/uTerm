@@ -11,7 +11,7 @@ page: https://hw-by-design.blogspot.com/2018/07/low-cost-vga-terminal-module-pro
 
 uTerm "project" page: https://hackaday.io/project/165325
 
-In the following the original text.
+In the following the original text. 
 
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
