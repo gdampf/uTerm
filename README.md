@@ -13,9 +13,9 @@ uTerm "project" page: https://hackaday.io/project/165325
 
 Supported uTerm boards:
 
-A071218
-A071218-R250119
-A071218-R290319
+- A071218
+- A071218-R250119
+- A071218-R290319
 
 In the following the original text. 
 
