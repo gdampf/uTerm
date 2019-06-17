@@ -17,6 +17,10 @@ Supported uTerm boards:
 - A071218-R250119
 - A071218-R290319
 
+Supported uTerm-S boards:
+
+- A200419
+
 In the following the original text. 
 
 ------------------------------------------------------------------------------
