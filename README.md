@@ -15,7 +15,6 @@ NOTE: I've updated here only the changed source files, so you must recompile all
 
 Supported uTerm boards:
 
-- A071218
 - A071218-R250119
 - A071218-R290319
 
