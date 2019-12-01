@@ -8,6 +8,12 @@
  * Keystroke decoding and VT output sequences by Madis Kaal
  * Copyright (c) 2017 Madis Kaal
  *
+ 
+ // ********************************************************************
+ // Changes for the uTerm A071218 by gkaufman (2019).
+ // Search the "uTerm" string to find the changes                   
+ // 
+ // ********************************************************************
 
  
  	This program is free software: you can redistribute it and/or modify
@@ -246,6 +252,7 @@ static void Key_Up(uint8_t key)
   switch (c) 
   {
     case LEFT_CONTROL_KEY:
+    case RIGHT_CONTROL_KEY:                    // uTerm: added to solve the right ctrl bug (gkaufman)
       Modifiers&=~CONTROL_MODIFIER;
       return;
     case LEFT_SHIFT_KEY:
@@ -275,6 +282,7 @@ uint8_t c;
   switch (c) 
   {
     case LEFT_CONTROL_KEY:
+    case RIGHT_CONTROL_KEY:                   // uTerm: added to solve the right ctrl bug (gkaufman)
       Modifiers|=CONTROL_MODIFIER;
       return;
     case LEFT_SHIFT_KEY:
