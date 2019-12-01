@@ -24,7 +24,7 @@ Supported uTerm-S boards:
 
 ------------------------------------------------------------------------------
 
-**UPDATE (11/2019):** Solved a bug using the right CTRL key in some situations (i.e. CTRL-L)
+**UPDATE (11/2019):** Solved a bug (by gkaufman) using the right CTRL key in some situations (i.e. CTRL-L)
 
 ------------------------------------------------------------------------------
 
