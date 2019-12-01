@@ -22,7 +22,11 @@ Supported uTerm-S boards:
 
 - A200419
 
-UPDATE (11/2019): Solved a bug using the right CTRL key in some situations (i.e. CTRL-L)
+------------------------------------------------------------------------------
+
+**UPDATE (11/2019):** Solved a bug using the right CTRL key in some situations (i.e. CTRL-L)
+
+------------------------------------------------------------------------------
 
 In the following the original text. 
 
