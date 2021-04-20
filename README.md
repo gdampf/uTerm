@@ -3,6 +3,16 @@
 
 uTerm (micro-Term) is a VT100-like terminal for the Z80-MBC2 (https://hackaday.io/project/159973). It has a VGA out and PS/2 keyboard connector, a power supply for the Z80-MBC2 and a "transparent" serial-USB port.
 
+This fork of https://github.com/SuperFabius/uTerm was originally made for supporting German Keyboard-Layout.
+Then, I recognized, that some kind of keyboards with PS/2 doesn`t react at the given firmware. They are justdending out 0xAA all the time and no key codes. By comparing the signals to a system, where they are working fine, I found that they need a reset (0xff), to work propperly.
+Thisfork solve therefore three things:
+
+1. the state machine for the keyboard has been changed to support this kind of keyboards, which are waiting in reset.
+2. the right alt key is now used as a separate modifier to support the ALTGR-Codes on many non US-Keyboard-Layouts.
+3. the keys are changed corresponding to German Layout
+
+Herecomes the original Text:
+
 These are the sources modified for the uTerm forked from the Madis Kaal 
 repository (forked from the original repository of K. C. Lee: 
 https://github.com/FPGA-Computer/STM32F030F4-VGA. Original project 
