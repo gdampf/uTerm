@@ -13,6 +13,8 @@ This fork solve therefore three things:
 
 To compile this code, I used Keil µVision5 under Windows X!
 
+I further added the code for using an ESP8266 for using telnet via WiFi.
+
 Here comes the original Text:
 
 These are the sources modified for the uTerm forked from the Madis Kaal 
