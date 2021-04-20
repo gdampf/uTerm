@@ -62,13 +62,15 @@ void PS2_Init(void)
 	EXTI->IMR |= EXTI_IMR_MR1;											// Unmask PA1
 	
 	PS2_IF.Init = 0;
-	PS2_Fsm.State = PS2_UNKNOWN;
 	Modifiers=0;
 	FIFO_Clear((FIFO*)PS2_Buf);
 	
 	// NVIC IRQ
   NVIC_SetPriority(EXTI0_1_IRQn,PS2_IRQ_PRIORITY);
   NVIC_EnableIRQ(EXTI0_1_IRQn);
+	
+	PS2_Fsm.State = PS2_CMD_ACK;
+  PS2_Send(PS2_CMD_RESET);
 }
 
 // PS/2 IRQ handler at PA1
@@ -170,6 +172,14 @@ void PS2_Update_LED(uint8_t LED)
 	PS2_Send(PS2_Cmd);
 }
 
+void PS2_Set_Scancode(uint8_t C)
+{	
+	PS2_Fsm.State = PS2_CMD;	
+	PS2_Cmd = 0xF0;
+	PS2_Cmd_Arg = C;
+	PS2_Send(PS2_Cmd);
+}
+
 // ------------------------------------------------------------------
 
 void NumLockOn(void)
@@ -240,15 +250,14 @@ static void Key_Up(uint8_t key)
 	uint8_t c;
 	key=Remap_Key(Scancode_Translations,COUNTOF(Scancode_Translations),key);
 	if (Modifiers&EXTEND_MODIFIER) 
-	{
 		c=Lookup_Key(Escaped_Regular,COUNTOF(Escaped_Regular),key);
-	}
-	else {
-		if ((Modifiers&SHIFT_MODIFIER || Modifiers&FAKESHIFT_MODIFIER))
-			c=Remap_Key(Shifted_Regular,COUNTOF(Shifted_Regular),key); 
-		else
-			c=Remap_Key(Unshifted_Regular,COUNTOF(Unshifted_Regular),key);
-	}
+	else if ((Modifiers&ALTGR_MODIFIER))
+		c=Lookup_Key(Altgr_Regular,COUNTOF(Altgr_Regular),key); 
+	else if ((Modifiers&SHIFT_MODIFIER || Modifiers&FAKESHIFT_MODIFIER))
+	  c=Remap_Key(Shifted_Regular,COUNTOF(Shifted_Regular),key); 
+	else
+		c=Remap_Key(Unshifted_Regular,COUNTOF(Unshifted_Regular),key);
+	
   switch (c) 
   {
     case LEFT_CONTROL_KEY:
@@ -262,6 +271,9 @@ static void Key_Up(uint8_t key)
     case LEFT_ALT_KEY:
       Modifiers&=~ALT_MODIFIER;
       return;
+    case RIGHT_ALT_KEY:
+      Modifiers&=~ALTGR_MODIFIER;
+      return;
     case FAKE_LSHIFT_KEY:
     case FAKE_RSHIFT_KEY:
       Modifiers&=~FAKESHIFT_MODIFIER;
@@ -273,7 +285,9 @@ static void Key_Down(uint8_t key)
 {
 uint8_t c;
 	key=Remap_Key(Scancode_Translations,COUNTOF(Scancode_Translations),key);
-	if ((Modifiers&SHIFT_MODIFIER || Modifiers&FAKESHIFT_MODIFIER))
+	if ((Modifiers&ALTGR_MODIFIER))
+		c=Lookup_Key(Altgr_Regular,COUNTOF(Altgr_Regular),key); 
+	else if ((Modifiers&SHIFT_MODIFIER || Modifiers&FAKESHIFT_MODIFIER))
 		c=Remap_Key(Shifted_Regular,COUNTOF(Shifted_Regular),key); 
 	else
 		c=Remap_Key(Unshifted_Regular,COUNTOF(Unshifted_Regular),key);
@@ -290,7 +304,7 @@ uint8_t c;
       Modifiers|=SHIFT_MODIFIER;
       return;
     case LEFT_ALT_KEY:
-      Modifiers|=ALT_MODIFIER;
+      Modifiers|=((Modifiers&EXTEND_MODIFIER)?ALTGR_MODIFIER:ALT_MODIFIER);
       return;
     case CAPS_LOCK_KEY:
       Modifiers^=CAPSLOCK_MODIFIER;
@@ -332,13 +346,13 @@ void PS2_Task(void)
 	ps2_data = Getc((FIFO*)PS2_Buf);
 	if (ps2_data ==PS2_KBD_ERR_CODE)
 	{ 
-		PS2_Fsm.State = PS2_UNKNOWN;
+		PS2_Fsm.State = PS2_CMD_ACK;
 		PS2_Send(PS2_CMD_RESET);
 	  return;
 	}
 	else if (ps2_data == PS2_RESPOND_INIT_OK)
 	{
-		PS2_Fsm.State = PS2_KBD_RDY;						// Power on reset
+		PS2_Set_Scancode(2);						// Power on reset
 		return;
 	}
 	switch(PS2_Fsm.State)
@@ -346,6 +360,7 @@ void PS2_Task(void)
 		case PS2_UNKNOWN:
 		  if(ps2_data ==PS2_RESPOND_ACK)
 			{
+				PS2_Fsm.State = PS2_CMD_ACK;
 		    PS2_Send(PS2_CMD_RESET);
 				break;
 			}

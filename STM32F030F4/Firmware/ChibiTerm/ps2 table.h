@@ -54,6 +54,7 @@ extern const char *Ansi_Key_Sequences[];
 #define FAKESHIFT_MODIFIER   0x0040
 #define EXTEND_MODIFIER      0x0080
 #define RELEASE_MODIFIER     0x0100
+#define ALTGR_MODIFIER       0x0200
 
 enum 
 {

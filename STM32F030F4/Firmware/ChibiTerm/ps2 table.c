@@ -41,6 +41,22 @@ const uint8_t Scancode_Translations[] =
 };
 
 
+const keymap_t Altgr_Regular[] = 
+{
+ { 0x08, '{'},// (7&) 
+ { 0x09, '['},// (8*) 
+ { 0x0a, ']'},// (9()
+ { 0x0b, '}'},// (0))
+ { 0x0c, '\\'},// (-_)
+ { 0x10, '@'},// (Q)
+ { 0x1b, '~'},// (]})
+ { 0x1d, LEFT_CONTROL_KEY},
+ { 0x2a, LEFT_SHIFT_KEY},
+ { 0x36, RIGHT_SHIFT_KEY},
+ { 0x38, LEFT_ALT_KEY},
+ { 0x56, '|'} //unlabelled key to the left or to the right of the left Alt key #56
+};
+
 const uint8_t Unshifted_Regular[] = 
 {
  0, // nothing #00
@@ -55,8 +71,8 @@ const uint8_t Unshifted_Regular[] =
  '8',// (8*) #09 
  '9',// (9() # 0a
  '0',// (0)) # 0b
- '-',// (-_) # 0c
- '=',// (=+) # 0d
+ 'ß',// (-_) # 0c
+ '´',// (=+) # 0d
  8,// (Backspace) # 0e 
  9,// (Tab) # 0f
  'q',// (Q) # 10
@@ -64,13 +80,13 @@ const uint8_t Unshifted_Regular[] =
  'e',// (E) # 12
  'r',// (R) # 13
  't',// (T) # 14
- 'y',// (Y) # 15
+ 'z',// (Y) # 15
  'u',// (U) # 16
  'i',// (I) # 17
  'o',// (O) # 18
  'p',// (P) # 19
- '[',// ([{) # 1a
- ']',// (]}) # 1b
+ 'ü',// ([{) # 1a
+ '+',// (]}) # 1b
  13,// (Enter) # 1c
  LEFT_CONTROL_KEY,// (LCtrl) # 1d
  'a',// (A) # 1e
@@ -82,12 +98,12 @@ const uint8_t Unshifted_Regular[] =
  'j',// (J) # 24
  'k',// (K) # 25
  'l',// (L) # 26
- ';',// (;:) # 27
- '\'',// ('") # 28
- '`',// (`~) # 29
+ 'ö',// (;:) # 27
+ 'ä',// ('") # 28
+ '^',// (`~) # 29
  LEFT_SHIFT_KEY,// (LShift) # 2a
- '\\',// (\|) on a 102-key keyboard # 2b
- 'z',// (Z) # 2c
+ '#',// (\|) on a 102-key keyboard # 2b
+ 'y',// (Z) # 2c
  'x',// (X) # 2d
  'c',// (C) # 2e
  'v',// (V) # 2f
@@ -96,7 +112,7 @@ const uint8_t Unshifted_Regular[] =
  'm',// (M) # 32
  ',',// (,<) # 33
  '.',// (.>) # 34
- '/',// (/?) # 35
+ '-',// (/?) # 35
  RIGHT_SHIFT_KEY,// (RShift) # 36
  '*',// (Keypad-*) or (*/PrtScn) on a 83/84-key keyboard # 37
  LEFT_ALT_KEY,// (LAlt) # 38
@@ -128,8 +144,8 @@ const uint8_t Unshifted_Regular[] =
  KEYPAD_KEY,// (Keypad-0/Ins) # 52
  KEYPAD_KEY,// (Keypad-./Del) # 53
  0,// (Alt-SysRq) on a 84+ key keyboard # 54
- 0,// less common # 55
- 0, //unlabelled key to the left or to the right of the left Alt key #56
+ '^',// less common # 55
+ '<', //unlabelled key to the left or to the right of the left Alt key #56
  F11_KEY, // F11 # 57
  F12_KEY // F12 # 58
  // anything with higher number is not standard and not recognized
@@ -140,17 +156,17 @@ const uint8_t Shifted_Regular[] =
  0, // nothing #00
  27, // esc #01
  '!',// (1!) #02
- '@',// (2@) #03
- '#',// (3#) #04
+ '"',// (2@) #03
+ '§',// (3#) #04
  '$',// (4$E) #05 
  '%',// (5%) #06 
- '^',// (6^) #07 
- '&',// (7&) #08 
- '*',// (8*) #09 
- '(',// (9() # 0a
- ')',// (0)) # 0b
- '_',// (-_) # 0c
- '+',// (=+) # 0d
+ '&',// (6^) #07 
+ '/',// (7&) #08 
+ '(',// (8*) #09 
+ ')',// (9() # 0a
+ '=',// (0)) # 0b
+ '?',// (-_) # 0c
+ '`',// (=+) # 0d
  8,// (Backspace) # 0e 
  9,// (Tab) # 0f
  'Q',// (Q) # 10
@@ -158,13 +174,13 @@ const uint8_t Shifted_Regular[] =
  'E',// (E) # 12
  'R',// (R) # 13
  'T',// (T) # 14
- 'Y',// (Y) # 15
+ 'Z',// (Y) # 15
  'U',// (U) # 16
  'I',// (I) # 17
  'O',// (O) # 18
  'P',// (P) # 19
- '{',// ([{) # 1a
- '}',// (]}) # 1b
+ 'Ü',// ([{) # 1a
+ '*',// (]}) # 1b
  13,// (Enter) # 1c
  LEFT_CONTROL_KEY,// (LCtrl) # 1d
  'A',// (A) # 1e
@@ -176,21 +192,21 @@ const uint8_t Shifted_Regular[] =
  'J',// (J) # 24
  'K',// (K) # 25
  'L',// (L) # 26
- ':',// (;:) # 27
- '"',// ('") # 28
- '~',// (`~) # 29
+ 'Ö',// (;:) # 27
+ 'Ä',// ('") # 28
+ '°',// (`~) # 29
  LEFT_SHIFT_KEY,// (LShift) # 2a
- '|',// (\|) on a 102-key keyboard # 2b
- 'Z',// (Z) # 2c
+ '\'',// (\|) on a 102-key keyboard # 2b
+ 'Y',// (Z) # 2c
  'X',// (X) # 2d
  'C',// (C) # 2e
  'V',// (V) # 2f
  'B',// (B) # 30
  'N',// (N) # 31
  'M',// (M) # 32
- '<',// (,<) # 33
- '>',// (.>) # 34
- '?',// (/?) # 35
+ ';',// (,<) # 33
+ ':',// (.>) # 34
+ '_',// (/?) # 35
  RIGHT_SHIFT_KEY,// (RShift) # 36
  '*',// (Keypad-*) or (*/PrtScn) on a 83/84-key keyboard # 37
  LEFT_ALT_KEY,// (LAlt) # 38
@@ -222,13 +238,12 @@ const uint8_t Shifted_Regular[] =
  '0',// (Keypad-0/Ins) # 52
  '.',// (Keypad-./Del) # 53
  0,// (Alt-SysRq) on a 84+ key keyboard # 54
- 0,// less common # 55
- 0, //unlabelled key to the left or to the right of the left Alt key #56
+ '\\',// less common # 55
+ '>', //unlabelled key to the left or to the right of the left Alt key #56
  F11_KEY, // F11 # 57
  F12_KEY // F12 # 
  // anything with higher number is not standard and not recognized
 };
-
 
 const keymap_t Keypad_Numeric[] =
 {
