@@ -11,6 +11,8 @@ Thisfork solve therefore three things:
 2. the right alt key is now used as a separate modifier to support the ALTGR-Codes on many non US-Keyboard-Layouts.
 3. the keys are changed corresponding to German Layout
 
+To compile this code, I used Keil µVision5 under Windows X!
+
 Herecomes the original Text:
 
 These are the sources modified for the uTerm forked from the Madis Kaal 
